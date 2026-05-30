@@ -35,11 +35,11 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Testimonios</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Testimonios</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Lo que dicen nuestros pacientes
           </h2>
-          <p className="text-[#A59F90]">
+          <p className="text-neutral">
             La experiencia de quienes han confiado en nuestro acompañamiento médico.
           </p>
         </motion.div>
@@ -52,20 +52,20 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#1a1a1a]/80 rounded-2xl p-6 border border-white/5"
+              className="bg-card/80 rounded-2xl p-6 border border-card-border/5"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 text-[#AA8D57] fill-[#AA8D57]" />
+                  <Star key={j} className="w-4 h-4 text-secondary fill-secondary" />
                 ))}
               </div>
               <p className="text-[#e0e0e0] text-sm leading-relaxed mb-4">
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="border-t border-white/10 pt-3 mt-auto">
+              <div className="border-t border-card-border/10 pt-3 mt-auto">
                 <p className="font-semibold text-sm text-white">{t.author}</p>
                 {t.procedure && (
-                  <p className="text-xs text-[#AA8D57]">{t.procedure}</p>
+                  <p className="text-xs text-secondary">{t.procedure}</p>
                 )}
               </div>
             </motion.div>
@@ -78,7 +78,7 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-sm text-[#A59F90] mb-4">
+          <p className="text-sm text-neutral mb-4">
             Testimonios reales compartidos con autorización. Los resultados varían según cada paciente.
           </p>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">

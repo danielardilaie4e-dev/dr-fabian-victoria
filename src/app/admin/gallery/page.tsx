@@ -40,8 +40,8 @@ export default function AdminGallery() {
 
       {items.length === 0 ? (
         <Card>
-          <CardContent className="p-6 text-center text-[#A59F90]">
-            <Image className="w-12 h-12 mx-auto mb-3 text-[#AA8D57]/30" />
+          <CardContent className="p-6 text-center text-neutral">
+            <Image className="w-12 h-12 mx-auto mb-3 text-secondary/30" />
             <p>No hay imágenes en la galería.</p>
             <p className="text-sm mt-1">Las imágenes se pueden agregar directamente en la carpeta /public/images/</p>
           </CardContent>
@@ -55,10 +55,10 @@ export default function AdminGallery() {
                   <img src={item.url} alt={item.description || ''} className="w-full h-full object-cover" />
                 </div>
                 {item.description && (
-                  <p className="text-xs text-[#A59F90] mb-2">{item.description}</p>
+                  <p className="text-xs text-neutral mb-2">{item.description}</p>
                 )}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-[#A59F90]">{item.category || 'Sin categoría'}</span>
+                  <span className="text-xs text-neutral">{item.category || 'Sin categoría'}</span>
                   <Button variant="ghost" size="sm" onClick={() => handleDelete(item.id)}>
                     <Trash2 className="w-3 h-3 text-red-500" />
                   </Button>

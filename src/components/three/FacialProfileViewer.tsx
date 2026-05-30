@@ -82,7 +82,7 @@ export function FacialProfileViewer() {
           />
         </Suspense>
       </Canvas>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-[#A59F90] bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-[#AA8D57]/20">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-neutral bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-secondary/20">
         Arrastra para rotar • Puente nasal • Punta • Ángulo nasolabial
       </div>
     </div>

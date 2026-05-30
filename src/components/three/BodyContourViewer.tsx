@@ -79,7 +79,7 @@ export function BodyContourViewer() {
             key={zone.name}
             onMouseEnter={() => setHoveredZone(zone.name)}
             onMouseLeave={() => setHoveredZone(null)}
-            className="px-3 py-1.5 text-xs rounded-full border border-[#AA8D57]/30 bg-white/80 backdrop-blur-sm hover:bg-[#AA8D57]/10 transition-colors"
+            className="px-3 py-1.5 text-xs rounded-full border border-secondary/30 bg-white/80 backdrop-blur-sm hover:bg-secondary/10 transition-colors"
           >
             {zone.name}
           </button>

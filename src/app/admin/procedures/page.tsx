@@ -126,7 +126,7 @@ export default function AdminProcedures() {
                   <select
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full rounded-xl border border-[#AA8D57]/20 bg-white px-4 py-3 text-sm"
+                    className="w-full rounded-xl border border-secondary/20 bg-white px-4 py-3 text-sm"
                   >
                     <option value="consulta médica">Valoración</option>
                     <option value="corporal">Corporal</option>
@@ -167,7 +167,7 @@ export default function AdminProcedures() {
                   <select
                     value={form.commercialPriority}
                     onChange={(e) => setForm({ ...form, commercialPriority: e.target.value })}
-                    className="w-full rounded-xl border border-[#AA8D57]/20 bg-white px-4 py-3 text-sm"
+                    className="w-full rounded-xl border border-secondary/20 bg-white px-4 py-3 text-sm"
                   >
                     <option value="alta">Alta</option>
                     <option value="media">Media</option>
@@ -199,7 +199,7 @@ export default function AdminProcedures() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold text-[#221E1F]">{proc.name}</h3>
-                  <p className="text-sm text-[#A59F90]">{proc.category} · {proc.cta}</p>
+                  <p className="text-sm text-neutral">{proc.category} · {proc.cta}</p>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="ghost" size="sm" onClick={() => handleEdit(proc)}>

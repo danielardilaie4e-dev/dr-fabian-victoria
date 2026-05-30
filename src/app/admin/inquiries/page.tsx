@@ -33,7 +33,7 @@ export default function AdminInquiries() {
 
       {inquiries.length === 0 ? (
         <Card>
-          <CardContent className="p-6 text-center text-[#A59F90]">
+          <CardContent className="p-6 text-center text-neutral">
             No hay solicitudes de contacto aún.
           </CardContent>
         </Card>
@@ -48,7 +48,7 @@ export default function AdminInquiries() {
                       <h3 className="font-semibold text-[#221E1F]">{inq.name}</h3>
                       {inq.procedure && <Badge>{inq.procedure}</Badge>}
                     </div>
-                    <div className="flex flex-wrap gap-3 text-sm text-[#A59F90]">
+                    <div className="flex flex-wrap gap-3 text-sm text-neutral">
                       <a
                         href={formatWhatsApp(inq.whatsapp)}
                         target="_blank"

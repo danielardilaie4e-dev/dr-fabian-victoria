@@ -43,11 +43,11 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-[#F7F3EA] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-full bg-[#221E1F] flex items-center justify-center mx-auto mb-4">
-            <Lock className="w-6 h-6 text-[#AA8D57]" />
+          <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-6 h-6 text-secondary" />
           </div>
           <h1 className="text-2xl font-serif font-bold text-[#221E1F]">Admin</h1>
-          <p className="text-sm text-[#A59F90] mt-1">Dr. Fabian Victoria</p>
+          <p className="text-sm text-neutral mt-1">Dr. Fabian Victoria</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 border border-[#E4D5A5]/20 shadow-sm">
@@ -75,7 +75,7 @@ export default function AdminLogin() {
           </div>
         </form>
 
-        <p className="text-center text-xs text-[#A59F90] mt-4">
+        <p className="text-center text-xs text-neutral mt-4">
           Acceso solo para administradores
         </p>
       </div>

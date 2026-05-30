@@ -21,18 +21,18 @@ export function AboutDoctor() {
           >
             <div className="relative w-full aspect-[3/4] max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5 rounded-3xl" />
-              <div className="absolute inset-3 bg-[#1a1a1a] rounded-2xl flex items-center justify-center border border-white/5">
+              <div className="absolute inset-3 bg-card rounded-2xl flex items-center justify-center border border-card-border/5">
                 <div className="text-center p-8">
                   <Image
                     src="/logo.jpg"
                     alt="Dr. Fabian Victoria"
                     width={200}
                     height={200}
-                    className="rounded-full mx-auto mb-4 border-2 border-[#AA8D57]/30"
+                    className="rounded-full mx-auto mb-4 border-2 border-secondary/30"
                   />
                   <h3 className="text-white text-xl font-serif">Dr. Fabián Efrén</h3>
                   <h3 className="text-white text-xl font-serif">Victoria Ardila</h3>
-                  <p className="text-[#AA8D57] text-sm mt-2">Cirujano Plástico</p>
+                  <p className="text-secondary text-sm mt-2">Cirujano Plástico</p>
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@ export function AboutDoctor() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 bg-[#AA8D57]/10 text-[#AA8D57] text-sm font-medium px-4 py-1.5 rounded-full mb-4">
+            <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-sm font-medium px-4 py-1.5 rounded-full mb-4">
               <GraduationCap className="w-4 h-4" />
               Sobre el doctor
             </div>
@@ -52,7 +52,7 @@ export function AboutDoctor() {
               Especialista en cirugía plástica, estética y reconstructiva
             </h2>
 
-            <p className="text-[#A59F90] leading-relaxed mb-6">
+            <p className="text-neutral leading-relaxed mb-6">
               El Dr. Fabián Efrén Victoria Ardila es cirujano plástico en Cali, enfocado en procedimientos
               estéticos y reconstructivos con una atención basada en valoración individual, seguridad del
               paciente y seguimiento continuo. Su trabajo busca armonizar expectativas, anatomía y criterio
@@ -61,17 +61,17 @@ export function AboutDoctor() {
 
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
-                <Award className="w-5 h-5 text-[#AA8D57] mt-0.5 shrink-0" />
+                <Award className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-white">Universidad del Valle</p>
-                  <p className="text-sm text-[#A59F90]">Formación en cirugía plástica</p>
+                  <p className="text-sm text-neutral">Formación en cirugía plástica</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Heart className="w-5 h-5 text-[#AA8D57] mt-0.5 shrink-0" />
+                <Heart className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-white">Miembro SCCP</p>
-                  <p className="text-sm text-[#A59F90]">Sociedad Colombiana de Cirugía Plástica</p>
+                  <p className="text-sm text-neutral">Sociedad Colombiana de Cirugía Plástica</p>
                 </div>
               </div>
             </div>

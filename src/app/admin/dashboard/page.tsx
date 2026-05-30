@@ -59,7 +59,7 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-3xl font-bold text-[#221E1F]">{card.value}</p>
-                      <p className="text-sm text-[#A59F90] mt-1">{card.label}</p>
+                      <p className="text-sm text-neutral mt-1">{card.label}</p>
                     </div>
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${card.color}`}>
                       <Icon className="w-6 h-6" />
@@ -75,7 +75,7 @@ export default function Dashboard() {
       <Card>
         <CardContent className="p-6">
           <h2 className="font-semibold text-[#221E1F] mb-2">Bienvenido al panel de administración</h2>
-          <p className="text-sm text-[#A59F90]">
+          <p className="text-sm text-neutral">
             Desde aquí puedes gestionar todo el contenido del sitio web del Dr. Fabian Victoria.
             Usa el menú lateral para navegar entre las secciones.
           </p>

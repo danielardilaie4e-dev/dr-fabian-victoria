@@ -20,18 +20,18 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="max-w-xl"
           >
-            <div className="inline-flex items-center gap-2 bg-[#AA8D57]/10 text-[#AA8D57] text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-sm font-medium px-4 py-1.5 rounded-full mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#AA8D57]" />
               Cirujano Plástico en Cali
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
               Cirugía plástica con{' '}
-              <span className="text-[#AA8D57]">precisión médica</span>,
+              <span className="text-secondary">precisión médica</span>,
               estética natural y acompañamiento personalizado
             </h1>
 
-            <p className="text-lg text-[#A59F90] leading-relaxed mb-8">
+            <p className="text-lg text-neutral leading-relaxed mb-8">
               El Dr. Fabian Victoria brinda atención en cirugía plástica, estética y reconstructiva en Cali,
               con valoración detallada, planeación responsable y seguimiento postoperatorio.
             </p>
@@ -50,18 +50,18 @@ export function Hero() {
               </a>
             </div>
 
-            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-white/10">
+            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-card-border/10">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-[#AA8D57]/20 border-2 border-[#1a1a1a] flex items-center justify-center text-xs text-[#AA8D57] font-semibold"
+                    className="w-10 h-10 rounded-full bg-secondary/20 border-2 border-[#1a1a1a] flex items-center justify-center text-xs text-secondary font-semibold"
                   >
                     {['FV', 'DV', 'MV'][i - 1]}
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-[#A59F90]">
+              <p className="text-sm text-neutral">
                 <span className="text-white font-semibold">+200 pacientes</span> han confiado en su valoración
               </p>
             </div>
@@ -75,13 +75,13 @@ export function Hero() {
           >
             <div className="relative">
               <div className="w-96 h-96 rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5" />
-              <div className="absolute inset-4 rounded-full border border-[#AA8D57]/10" />
+              <div className="absolute inset-4 rounded-full border border-secondary/10" />
               <div className="absolute inset-8 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-[#AA8D57]/20">
+                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-secondary/20">
                   <div className="text-center">
-                    <div className="text-[#AA8D57] text-5xl font-serif font-bold">FV</div>
+                    <div className="text-secondary text-5xl font-serif font-bold">FV</div>
                     <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIAN VICTORIA</div>
-                    <div className="text-[#AA8D57]/60 text-xs mt-1">Cirujano Plástico</div>
+                    <div className="text-secondary/60 text-xs mt-1">Cirujano Plástico</div>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@ export function Hero() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <ArrowDown className="w-5 h-5 text-[#AA8D57] animate-bounce" />
+        <ArrowDown className="w-5 h-5 text-secondary animate-bounce" />
       </motion.div>
     </section>
   )

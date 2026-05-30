@@ -43,7 +43,7 @@ export default function AdminContent() {
   }, {})
 
   if (loading) {
-    return <div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-2 border-[#AA8D57] border-t-transparent rounded-full animate-spin" /></div>
+    return <div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-2 border-secondary border-t-transparent rounded-full animate-spin" /></div>
   }
 
   return (
@@ -57,7 +57,7 @@ export default function AdminContent() {
             <div className="space-y-4">
               {contentItems.map((item) => (
                 <div key={item.id}>
-                  <label className="block text-sm font-medium text-[#A59F90] mb-1 capitalize">{item.key.replace('_', ' ')}</label>
+                  <label className="block text-sm font-medium text-neutral mb-1 capitalize">{item.key.replace('_', ' ')}</label>
                   <div className="flex gap-2">
                     <Textarea
                       defaultValue={item.value}

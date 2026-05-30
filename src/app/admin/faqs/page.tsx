@@ -94,7 +94,7 @@ export default function AdminFAQs() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="font-semibold text-[#221E1F] text-sm mb-1">{item.question}</h3>
-                  <p className="text-sm text-[#A59F90] line-clamp-2">{item.answer}</p>
+                  <p className="text-sm text-neutral line-clamp-2">{item.answer}</p>
                 </div>
                 <div className="flex gap-2 shrink-0">
                   <Button variant="ghost" size="sm" onClick={() => handleEdit(item)}><Pencil className="w-4 h-4" /></Button>

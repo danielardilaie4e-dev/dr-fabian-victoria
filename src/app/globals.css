@@ -1,10 +1,41 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0a0a0a;
-  --color-foreground: #ededed;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-primary: #221E1F;
+  --color-secondary: #AA8D57;
+  --color-accent: #E4D5A5;
+  --color-neutral: var(--neutral);
+  --color-neutral-light: var(--neutral-light);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-surface: var(--surface);
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+:root {
+  --bg: #ffffff;
+  --fg: #221E1F;
+  --neutral: #5C5C5C;
+  --neutral-light: #7A7A7A;
+  --muted: #9CA3AF;
+  --card: #f5f5f5;
+  --card-border: rgba(0,0,0,0.08);
+  --surface: #f0f0f0;
+}
+
+.dark {
+  --bg: #0a0a0a;
+  --fg: #ededed;
+  --neutral: #C0B8A8;
+  --neutral-light: #D4CDBD;
+  --muted: #6B6B6B;
+  --card: #1a1a1a;
+  --card-border: rgba(255,255,255,0.08);
+  --surface: #111111;
 }
 
 * {
@@ -12,23 +43,11 @@
 }
 
 body {
-  background: #0a0a0a;
-  color: #ededed;
+  background: var(--bg);
+  color: var(--fg);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.light body,
-body.light {
-  background: #ffffff;
-  color: #221E1F;
-}
-
-.dark body,
-body.dark {
-  background: #0a0a0a;
-  color: #ededed;
 }
 
 ::-webkit-scrollbar {

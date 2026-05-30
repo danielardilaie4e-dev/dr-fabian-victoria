@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F7F3EA] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#AA8D57] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-secondary border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -64,12 +64,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-[#F7F3EA] flex">
       <aside
         className={cn(
-          'fixed lg:static inset-y-0 left-0 z-50 w-64 bg-[#221E1F] text-white flex flex-col transition-transform duration-300 lg:translate-x-0',
+          'fixed lg:static inset-y-0 left-0 z-50 w-64 bg-primary text-white flex flex-col transition-transform duration-300 lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
         <div className="p-6 border-b border-white/10">
-          <h2 className="font-serif text-xl font-bold text-[#AA8D57]">Dr. Fabian Victoria</h2>
+          <h2 className="font-serif text-xl font-bold text-secondary">Dr. Fabian Victoria</h2>
           <p className="text-xs text-white/50">Panel Administrativo</p>
         </div>
 
@@ -85,7 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 className={cn(
                   'flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-colors',
                   active
-                    ? 'bg-[#AA8D57]/20 text-[#AA8D57]'
+                    ? 'bg-secondary/20 text-secondary'
                     : 'text-white/60 hover:text-white hover:bg-white/5',
                 )}
               >
@@ -131,7 +131,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Menu className="w-5 h-5" />
           </button>
-          <p className="text-sm text-[#A59F90]">
+          <p className="text-sm text-neutral">
             Panel de Administración
           </p>
         </header>

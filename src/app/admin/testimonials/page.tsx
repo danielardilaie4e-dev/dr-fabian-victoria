@@ -99,10 +99,10 @@ export default function AdminTestimonials() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex gap-1 mb-2">
-                    {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 text-[#AA8D57] fill-[#AA8D57]" />)}
+                    {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 text-secondary fill-secondary" />)}
                   </div>
                   <p className="text-sm text-[#221E1F] mb-1">&ldquo;{item.text}&rdquo;</p>
-                  <p className="text-xs text-[#A59F90]">
+                  <p className="text-xs text-neutral">
                     {item.author && <span className="font-medium">{item.author}</span>}
                     {item.author && item.procedure && <span> · </span>}
                     {item.procedure && <span>{item.procedure}</span>}

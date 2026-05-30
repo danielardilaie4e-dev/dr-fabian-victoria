@@ -77,7 +77,7 @@ export function ProceduresSection() {
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
-    <section id="procedimientos" className="py-24 bg-[#111111]/80 backdrop-blur-sm">
+    <section id="procedimientos" className="py-24 bg-surface/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,11 +85,11 @@ export function ProceduresSection() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Procedimientos</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Procedimientos</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Cada procedimiento inicia con una valoración médica
           </h2>
-          <p className="text-[#A59F90]">
+          <p className="text-neutral">
             Antes de hablar de cirugía, se revisa tu caso, tus expectativas, tus antecedentes y las alternativas más adecuadas para ti.
           </p>
         </motion.div>
@@ -106,22 +106,22 @@ export function ProceduresSection() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
               >
-                <Card className="p-6 h-full hover:border-[#AA8D57]/40 transition-all group cursor-default">
+                <Card className="p-6 h-full hover:border-secondary/40 transition-all group cursor-default">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#AA8D57]/10 flex items-center justify-center shrink-0 group-hover:bg-[#AA8D57]/20 transition-colors">
-                      <Icon className="w-5 h-5 text-[#AA8D57]" />
+                    <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
+                      <Icon className="w-5 h-5 text-secondary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <Badge className="mb-2">{category?.label || proc.category}</Badge>
                       <h3 className="font-semibold text-white">{proc.name}</h3>
                     </div>
                   </div>
-                  <p className="text-sm text-[#A59F90] leading-relaxed mb-4">{proc.desc}</p>
+                  <p className="text-sm text-neutral leading-relaxed mb-4">{proc.desc}</p>
                   <a
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-[#AA8D57] font-medium hover:text-[#8f7546] transition-colors"
+                    className="inline-flex items-center gap-1 text-sm text-secondary font-medium hover:text-[#8f7546] transition-colors"
                   >
                     {proc.cta}
                     <ChevronRight className="w-4 h-4" />

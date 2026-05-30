@@ -92,15 +92,15 @@ export function ProcessTimeline3D() {
               i === activeStep
                 ? 'bg-[#AA8D57] text-white shadow-lg'
                 : i < activeStep
-                  ? 'bg-[#AA8D57]/20 text-[#221E1F]'
-                  : 'bg-white border border-[#AA8D57]/20 text-[#A59F90]'
+                  ? 'bg-secondary/20 text-[#221E1F]'
+                  : 'bg-white border border-secondary/20 text-neutral'
             }`}
           >
             {step.label}
           </button>
         ))}
       </div>
-      <div className="mt-4 text-center text-sm text-[#A59F90] max-w-md mx-auto">
+      <div className="mt-4 text-center text-sm text-neutral max-w-md mx-auto">
         {STEPS[activeStep].desc}
       </div>
     </div>

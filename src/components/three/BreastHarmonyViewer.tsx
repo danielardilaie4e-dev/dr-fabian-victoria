@@ -81,8 +81,8 @@ export function BreastHarmonyViewer() {
             onClick={() => setModeIndex(i)}
             className={`px-4 py-1.5 text-xs rounded-full border transition-colors ${
               i === modeIndex
-                ? 'bg-[#AA8D57] text-white border-[#AA8D57]'
-                : 'border-[#AA8D57]/30 bg-white/80 backdrop-blur-sm hover:bg-[#AA8D57]/10'
+                ? 'bg-[#AA8D57] text-white border-secondary'
+                : 'border-secondary/30 bg-white/80 backdrop-blur-sm hover:bg-secondary/10'
             }`}
           >
             {mode.name}
