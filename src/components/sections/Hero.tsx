@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
+import { SpecialText } from '@/components/ui/SpecialText'
 import { Phone, ArrowDown } from 'lucide-react'
 
 export function Hero() {
@@ -28,7 +29,10 @@ export function Hero() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
               Cirugía plástica con{' '}
               <span className="text-secondary">precisión médica</span>,
-              estética natural y acompañamiento personalizado
+              <SpecialText speed={30} delay={0.5}>
+                estética natural
+              </SpecialText>{' '}
+              y acompañamiento personalizado
             </h1>
 
             <p className="text-lg text-neutral leading-relaxed mb-8">

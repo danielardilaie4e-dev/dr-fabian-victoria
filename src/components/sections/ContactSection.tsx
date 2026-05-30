@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { formatWhatsApp } from '@/lib/utils'
-import { Phone, Globe, MapPin, Shield, ExternalLink } from 'lucide-react'
+import { AnimatedSocialLinks } from '@/components/ui/AnimatedSocialLinks'
+import { Phone, MapPin, Shield } from 'lucide-react'
 import { useState } from 'react'
 
 export function ContactSection() {
@@ -64,35 +65,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <a
-                href="https://www.instagram.com/drfabianvictoria/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center text-secondary hover:bg-secondary/10 transition-colors"
-                title="Instagram"
-              >
-                <Globe className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.facebook.com/DrFabianVictoria/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center text-secondary hover:bg-secondary/10 transition-colors"
-                title="Facebook"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/fabian-victoria-ardila-15b77a125/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center text-secondary hover:bg-secondary/10 transition-colors"
-                title="LinkedIn"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
+            <AnimatedSocialLinks />
 
             <div className="flex items-start gap-3 mt-8 pt-6 border-t border-card-border/10">
               <Shield className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
