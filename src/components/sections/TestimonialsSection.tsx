@@ -3,22 +3,25 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
-import { Star } from 'lucide-react'
+import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
 
 const TESTIMONIALS = [
   {
+    id: 1,
+    name: 'María C.',
     text: 'Me sentí acompañada durante todo el proceso. La valoración fue clara y pude resolver mis dudas antes de decidir.',
-    author: 'María C.',
     procedure: 'Mamoplastia',
   },
   {
+    id: 2,
+    name: 'Andrea L.',
     text: 'El trato fue profesional y humano. Me explicaron los cuidados y el seguimiento de forma muy clara.',
-    author: 'Andrea L.',
     procedure: 'Liposucción',
   },
   {
+    id: 3,
+    name: 'Carolina M.',
     text: 'Lo que más valoré fue la honestidad sobre lo que era posible en mi caso y el acompañamiento después del procedimiento.',
-    author: 'Carolina M.',
     procedure: 'Abdominoplastia',
   },
 ]
@@ -36,7 +39,7 @@ export function TestimonialsSection() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Testimonios</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4">
             Lo que dicen nuestros pacientes
           </h2>
           <p className="text-neutral">
@@ -44,39 +47,20 @@ export function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {TESTIMONIALS.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-card/80 rounded-2xl p-6 border border-card-border/5"
-            >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 text-secondary fill-secondary" />
-                ))}
-              </div>
-              <p className="text-[#e0e0e0] text-sm leading-relaxed mb-4">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div className="border-t border-card-border/10 pt-3 mt-auto">
-                <p className="font-semibold text-sm text-white">{t.author}</p>
-                {t.procedure && (
-                  <p className="text-xs text-secondary">{t.procedure}</p>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="pb-8"
+        >
+          <TestimonialCarousel testimonials={TESTIMONIALS} />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-16"
         >
           <p className="text-sm text-neutral mb-4">
             Testimonios reales compartidos con autorización. Los resultados varían según cada paciente.
