@@ -4,6 +4,7 @@ import './globals.css'
 import { Providers } from './providers'
 import { DottedSurface } from '@/components/three/DottedSurface'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
+import { AIChat } from '@/components/AIChat'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Providers>
           <DottedSurface />
           <WhatsAppButton />
+          <AIChat />
           {children}
         </Providers>
       </body>
