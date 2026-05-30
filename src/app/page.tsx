@@ -21,7 +21,7 @@ export default function Home() {
       <FAQSection />
       <ContactSection />
 
-      <footer className="bg-[#1A1718] py-8 border-t border-[#AA8D57]/10">
+      <footer className="bg-[#0a0a0a] py-8 border-t border-white/5">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-[#A59F90]">
             &copy; {new Date().getFullYear()} Dr. Fabian Victoria — Cirujano Plástico en Cali.

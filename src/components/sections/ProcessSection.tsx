@@ -5,7 +5,7 @@ import { ProcessTimeline3D } from '@/components/three'
 
 export function ProcessSection() {
   return (
-    <section id="proceso" className="py-24 bg-[#F7F3EA]">
+    <section id="proceso" className="py-24 bg-[#111111]/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,7 +14,7 @@ export function ProcessSection() {
           className="text-center max-w-2xl mx-auto mb-12"
         >
           <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Tu Proceso</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Tu seguridad es parte central del proceso
           </h2>
           <p className="text-[#A59F90]">

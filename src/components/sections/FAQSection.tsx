@@ -50,7 +50,7 @@ export function FAQSection() {
   )
 
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="py-24 bg-[#111111]/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ export function FAQSection() {
           className="text-center mb-12"
         >
           <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Preguntas Frecuentes</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Resuelve tus dudas antes de decidir
           </h2>
           <p className="text-[#A59F90]">
@@ -74,7 +74,7 @@ export function FAQSection() {
             placeholder="Buscar pregunta..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-xl border border-[#AA8D57]/20 bg-[#F7F3EA] text-sm text-[#221E1F] placeholder:text-[#A59F90] focus:outline-none focus:ring-2 focus:ring-[#AA8D57]/30"
+            className="w-full pl-12 pr-4 py-3 rounded-xl border border-white/10 bg-[#1a1a1a] text-sm text-white placeholder:text-[#A59F90] focus:outline-none focus:ring-2 focus:ring-[#AA8D57]/30"
           />
         </div>
 
@@ -86,13 +86,13 @@ export function FAQSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.03 }}
-              className="border border-[#E4D5A5]/20 rounded-xl overflow-hidden"
+              className="border border-white/10 rounded-xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-4 text-left bg-white hover:bg-[#F7F3EA] transition-colors"
+                className="w-full flex items-center justify-between p-4 text-left bg-[#1a1a1a] hover:bg-[#222222] transition-colors"
               >
-                <span className="text-sm font-medium text-[#221E1F] pr-4">{faq.q}</span>
+                <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
                 <ChevronDown
                   className={`w-4 h-4 text-[#AA8D57] shrink-0 transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180' : ''
@@ -108,7 +108,7 @@ export function FAQSection() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-4 pb-4 text-sm text-[#A59F90] leading-relaxed border-t border-[#E4D5A5]/10 pt-3">
+                    <div className="px-4 pb-4 text-sm text-[#A59F90] leading-relaxed border-t border-white/5 pt-3 bg-[#1a1a1a]">
                       {faq.r}
                     </div>
                   </motion.div>

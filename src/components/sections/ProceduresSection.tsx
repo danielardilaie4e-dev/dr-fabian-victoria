@@ -77,7 +77,7 @@ export function ProceduresSection() {
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
-    <section id="procedimientos" className="py-24 bg-[#F7F3EA]">
+    <section id="procedimientos" className="py-24 bg-[#111111]/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -86,7 +86,7 @@ export function ProceduresSection() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Procedimientos</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Cada procedimiento inicia con una valoración médica
           </h2>
           <p className="text-[#A59F90]">
@@ -113,7 +113,7 @@ export function ProceduresSection() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <Badge className="mb-2">{category?.label || proc.category}</Badge>
-                      <h3 className="font-semibold text-[#221E1F]">{proc.name}</h3>
+                      <h3 className="font-semibold text-white">{proc.name}</h3>
                     </div>
                   </div>
                   <p className="text-sm text-[#A59F90] leading-relaxed mb-4">{proc.desc}</p>

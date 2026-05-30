@@ -10,7 +10,7 @@ export function AboutDoctor() {
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
-    <section id="sobre-el-doctor" className="py-24 bg-white">
+    <section id="sobre-el-doctor" className="py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -20,8 +20,8 @@ export function AboutDoctor() {
             className="relative"
           >
             <div className="relative w-full aspect-[3/4] max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#AA8D57]/20 to-[#E4D5A5]/10 rounded-3xl" />
-              <div className="absolute inset-3 bg-[#221E1F] rounded-2xl flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5 rounded-3xl" />
+              <div className="absolute inset-3 bg-[#1a1a1a] rounded-2xl flex items-center justify-center border border-white/5">
                 <div className="text-center p-8">
                   <Image
                     src="/logo.jpg"
@@ -48,7 +48,7 @@ export function AboutDoctor() {
               Sobre el doctor
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-6">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-6">
               Especialista en cirugía plástica, estética y reconstructiva
             </h2>
 
@@ -63,14 +63,14 @@ export function AboutDoctor() {
               <div className="flex items-start gap-3">
                 <Award className="w-5 h-5 text-[#AA8D57] mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-[#221E1F]">Universidad del Valle</p>
+                  <p className="text-sm font-medium text-white">Universidad del Valle</p>
                   <p className="text-sm text-[#A59F90]">Formación en cirugía plástica</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Heart className="w-5 h-5 text-[#AA8D57] mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-[#221E1F]">Miembro SCCP</p>
+                  <p className="text-sm font-medium text-white">Miembro SCCP</p>
                   <p className="text-sm text-[#A59F90]">Sociedad Colombiana de Cirugía Plástica</p>
                 </div>
               </div>

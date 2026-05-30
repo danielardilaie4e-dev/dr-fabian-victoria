@@ -10,7 +10,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#F7F3EA] via-white to-[#F7F3EA]/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -25,7 +25,7 @@ export function Hero() {
               Cirujano Plástico en Cali
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#221E1F] leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
               Cirugía plástica con{' '}
               <span className="text-[#AA8D57]">precisión médica</span>,
               estética natural y acompañamiento personalizado
@@ -50,19 +50,19 @@ export function Hero() {
               </a>
             </div>
 
-            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-[#E4D5A5]/20">
+            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-white/10">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-[#AA8D57]/20 border-2 border-white flex items-center justify-center text-xs text-[#AA8D57] font-semibold"
+                    className="w-10 h-10 rounded-full bg-[#AA8D57]/20 border-2 border-[#1a1a1a] flex items-center justify-center text-xs text-[#AA8D57] font-semibold"
                   >
                     {['FV', 'DV', 'MV'][i - 1]}
                   </div>
                 ))}
               </div>
               <p className="text-sm text-[#A59F90]">
-                <span className="text-[#221E1F] font-semibold">+200 pacientes</span> han confiado en su valoración
+                <span className="text-white font-semibold">+200 pacientes</span> han confiado en su valoración
               </p>
             </div>
           </motion.div>
@@ -74,10 +74,10 @@ export function Hero() {
             className="hidden lg:flex items-center justify-center"
           >
             <div className="relative">
-              <div className="w-96 h-96 rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#E4D5A5]/10" />
+              <div className="w-96 h-96 rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5" />
               <div className="absolute inset-4 rounded-full border border-[#AA8D57]/10" />
               <div className="absolute inset-8 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#221E1F] to-[#1A1718] flex items-center justify-center">
+                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-[#AA8D57]/20">
                   <div className="text-center">
                     <div className="text-[#AA8D57] text-5xl font-serif font-bold">FV</div>
                     <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIAN VICTORIA</div>

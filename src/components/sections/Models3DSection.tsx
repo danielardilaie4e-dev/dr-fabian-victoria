@@ -11,7 +11,7 @@ const VIEWERS = [
 
 export function Models3DSection() {
   return (
-    <section id="modelos-3d" className="py-24 bg-white">
+    <section id="modelos-3d" className="py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export function Models3DSection() {
           className="text-center max-w-2xl mx-auto mb-12"
         >
           <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Modelos Educativos 3D</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Visualiza y entiende cada procedimiento
           </h2>
           <p className="text-[#A59F90]">

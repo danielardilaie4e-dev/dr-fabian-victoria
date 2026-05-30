@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
+import { Providers } from './providers'
 import { DottedSurface } from '@/components/three/DottedSurface'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
 
@@ -36,11 +37,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="es" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
-        <DottedSurface />
-        <WhatsAppButton />
-        {children}
+        <Providers>
+          <DottedSurface />
+          <WhatsAppButton />
+          {children}
+        </Providers>
       </body>
     </html>
   )

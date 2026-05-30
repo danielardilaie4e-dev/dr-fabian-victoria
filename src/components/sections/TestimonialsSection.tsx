@@ -27,7 +27,7 @@ export function TestimonialsSection() {
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
-    <section id="testimonios" className="py-24 bg-white">
+    <section id="testimonios" className="py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,7 +36,7 @@ export function TestimonialsSection() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <p className="text-[#AA8D57] font-medium text-sm mb-4 uppercase tracking-wider">Testimonios</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#221E1F] mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Lo que dicen nuestros pacientes
           </h2>
           <p className="text-[#A59F90]">
@@ -52,18 +52,18 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#F7F3EA] rounded-2xl p-6 relative"
+              className="bg-[#1a1a1a]/80 rounded-2xl p-6 border border-white/5"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, j) => (
                   <Star key={j} className="w-4 h-4 text-[#AA8D57] fill-[#AA8D57]" />
                 ))}
               </div>
-              <p className="text-[#221E1F] text-sm leading-relaxed mb-4">
+              <p className="text-[#e0e0e0] text-sm leading-relaxed mb-4">
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="border-t border-[#E4D5A5]/20 pt-3 mt-auto">
-                <p className="font-semibold text-sm text-[#221E1F]">{t.author}</p>
+              <div className="border-t border-white/10 pt-3 mt-auto">
+                <p className="font-semibold text-sm text-white">{t.author}</p>
                 {t.procedure && (
                   <p className="text-xs text-[#AA8D57]">{t.procedure}</p>
                 )}
