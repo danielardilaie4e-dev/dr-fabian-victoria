@@ -11,6 +11,7 @@ import {
   FileText,
   Inbox,
   Image,
+  BookOpen,
   LogOut,
   Menu,
   X,
@@ -25,6 +26,7 @@ const NAV = [
   { label: 'Contenido del Sitio', href: '/admin/content', icon: FileText },
   { label: 'Contactos', href: '/admin/inquiries', icon: Inbox },
   { label: 'Galería', href: '/admin/gallery', icon: Image },
+  { label: 'Conocimiento IA', href: '/admin/knowledge', icon: BookOpen },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

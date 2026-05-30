@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-const SITE_CONTEXT = `
+const BASE_CONTEXT = `
 Eres un asistente virtual del Dr. Fabian Victoria, cirujano plástico en Cali, Colombia.
-Debes responder preguntas sobre procedimientos, valoraciones y cuidados basándote ESTRICTAMENTE en la siguiente información.
+Debes responder preguntas sobre procedimientos, valoraciones y cuidados basándote ESTRICTAMENTE en la información proporcionada.
 Si no sabes la respuesta, indica que el paciente debe agendar una valoración.
 Nunca des diagnósticos ni garantices resultados. Mantén un tono profesional, empático y claro.
 
@@ -47,9 +48,44 @@ NOTAS IMPORTANTES:
 - Cada paciente requiere evaluación individual.
 `.trim()
 
-async function queryAI(message: string): Promise<string | null> {
+async function searchKnowledge(query: string): Promise<string> {
+  try {
+    const docs = await prisma.knowledgeDocument.findMany()
+    const q = query.toLowerCase()
+    const words = q.split(/\s+/).filter((w) => w.length > 2)
+
+    const scored = docs.map((doc) => {
+      const content = (doc.title + ' ' + doc.content).toLowerCase()
+      let score = 0
+      for (const word of words) {
+        if (content.includes(word)) score++
+      }
+      if (doc.category && q.includes(doc.category.toLowerCase())) score += 3
+      return { doc, score }
+    })
+
+    const relevant = scored
+      .filter((s) => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+
+    if (relevant.length === 0) return ''
+
+    return relevant
+      .map((s) => `[DOCUMENTO: ${s.doc.title}${s.doc.category ? ` (${s.doc.category})` : ''}]\n${s.doc.content}`)
+      .join('\n\n')
+  } catch {
+    return ''
+  }
+}
+
+async function queryAI(message: string, knowledgeContext: string): Promise<string | null> {
   const apiKey = process.env['OPENAI_API_KEY']
   if (!apiKey) return null
+
+  const systemContent = knowledgeContext
+    ? `${BASE_CONTEXT}\n\nDOCUMENTOS DE REFERENCIA ADICIONALES (proporcionados por el consultorio):\n${knowledgeContext}\n\nUsa estos documentos como fuente prioritaria al responder. Si el usuario pregunta sobre temas cubiertos en estos documentos, responde basándote en ellos. Siempre que uses información de un documento, menciónalo por su título.`
+    : BASE_CONTEXT
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -60,10 +96,10 @@ async function queryAI(message: string): Promise<string | null> {
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: SITE_CONTEXT },
+        { role: 'system', content: systemContent },
         { role: 'user', content: message },
       ],
-      max_tokens: 500,
+      max_tokens: 800,
       temperature: 0.3,
     }),
   })
@@ -73,91 +109,93 @@ async function queryAI(message: string): Promise<string | null> {
   return data.choices?.[0]?.message?.content || null
 }
 
-function keywordFallback(message: string): string {
+function keywordFallback(message: string, knowledgeContext: string): string {
   const msg = message.toLowerCase()
 
-  const matchKeywords = (patterns: string[][], responses: string[]): string | null => {
-    for (let i = 0; i < patterns.length; i++) {
-      if (patterns[i].some((p) => msg.includes(p))) {
-        const idx = Math.min(i, responses.length - 1)
-        return responses[idx]
-      }
-    }
-    return null
+  if (knowledgeContext) {
+    const firstDoc = knowledgeContext.split('\n')[0]?.replace('[DOCUMENTO: ', '').replace(']', '') || ''
+    const previewLines = knowledgeContext.split('\n').slice(1, 5).join('\n')
+    return `Según la información disponible en el documento "${firstDoc}" que el Dr. Fabian Victoria ha proporcionado:\n\n${previewLines}\n\nSi necesitas más detalles, te recomiendo agendar una valoración personalizada. Escríbenos al WhatsApp +57 320 911 5240.`
   }
 
   const r = {
     valoracion: [
-      'La valoración médica es el primer paso y es obligatoria antes de cualquier procedimiento. En esta consulta se revisa tu caso, antecedentes, expectativas y se determina si hay indicación médica. No tiene costo de compromiso y puedes agendarla escribiéndonos al WhatsApp +57 320 911 5240.',
-      '¡Claro! La valoración es una consulta personalizada donde el Dr. Fabian Victoria evalúa tu caso, resuelve tus dudas y define el mejor plan para ti. Puedes solicitar la tuya por WhatsApp +57 320 911 5240.',
+      'La valoración médica es el primer paso y es obligatoria antes de cualquier procedimiento. En esta consulta se revisa tu caso, antecedentes, expectativas y se determina si hay indicación médica. Puedes agendarla al WhatsApp +57 320 911 5240.',
+      'La valoración es una consulta personalizada donde el Dr. Fabian Victoria evalúa tu caso, resuelve tus dudas y define el mejor plan para ti.',
     ],
     precio: [
-      'El costo de cada procedimiento depende del tipo de cirugía, la complejidad del caso, las necesidades individuales y los honorarios del equipo médico. Te recomiendo agendar una valoración para recibir un presupuesto personalizado sin compromiso. Escríbenos al WhatsApp +57 320 911 5240.',
-      'Entendemos que el factor económico es importante. En la valoración recibirás información detallada sobre costos, formas de pago y opciones disponibles. Cada caso es único y el presupuesto se ajusta a tus necesidades específicas.',
+      'El costo del procedimiento depende del tipo de cirugía, la complejidad del caso y las necesidades individuales. En la valoración recibirás un presupuesto personalizado. Escríbenos al WhatsApp +57 320 911 5240.',
+      'Los precios varían según cada caso. Te recomiendo agendar una valoración para recibir información detallada sobre costos y formas de pago.',
     ],
     lipo: [
-      'La liposucción y lipoescultura son procedimientos de contorno corporal que eliminan depósitos de grasa localizada en zonas específicas como abdomen, caderas, muslos o brazos. No deben entenderse como un método para bajar de peso. Los resultados dependen de la anatomía, elasticidad de la piel y las condiciones de cada paciente.',
-      'La lipoescultura no solo elimina grasa, sino que también redefine la silueta corporal. Es ideal para personas con peso estable que tienen depósitos de grasa resistentes al ejercicio. Se requiere una valoración para determinar si eres candidato.',
+      'La liposucción y lipoescultura remodelan el contorno corporal eliminando grasa localizada. No son tratamientos para bajar de peso. Los resultados dependen de la anatomía y evaluación individual.',
+      'La lipoescultura redefine la silueta corporal. Es ideal para personas con peso estable que tienen depósitos de grasa resistentes al ejercicio.',
     ],
     mama: [
-      'La mamoplastia abarca varios procedimientos: aumento con implantes, reducción mamaria, levantamiento (mastopexia) y remodelación. Cada caso se evalúa de forma individual para determinar la técnica más adecuada según tu anatomía, expectativas y necesidades. Los resultados son naturales cuando se planifican correctamente.',
-      'La cirugía de mamas puede transformar tu silueta y autoestima. Ya sea aumento, reducción o levantamiento, el Dr. Fabian Victoria evalúa tu caso para recomendar la mejor opción. Agenda tu valoración para conocer las alternativas.',
+      'La mamoplastia incluye aumento con implantes, reducción mamaria, levantamiento (mastopexia) y remodelación. Cada caso se evalúa individualmente para determinar la técnica más adecuada.',
+      'La cirugía de mamas puede transformar tu silueta y autoestima. El Dr. Fabian Victoria evalúa tu caso para recomendar la mejor opción.',
     ],
     recuperacion: [
-      'El tiempo de recuperación varía según el tipo de procedimiento y las condiciones de cada paciente. En términos generales, los primeros días requieren reposo relativo, y entre la primera y segunda semana se puede retomar actividades ligeras. El ejercicio intenso puede esperar de 4 a 8 semanas. En la valoración se explican los tiempos estimados para tu caso específico, junto con los cuidados, restricciones y controles necesarios.',
-      'La recuperación es un proceso importante. Durante la valoración, el Dr. Victoria te explicará detalladamente qué esperar: medicación, cuidados de las incisiones, prendas de compresión, controles postoperatorios y señales de alerta. Cada paciente tiene un plan de recuperación personalizado.',
+      'El tiempo de recuperación varía según el procedimiento. Generalmente: primeros días de reposo, actividades ligeras a las 2 semanas, ejercicio intenso de 4 a 8 semanas. En la valoración se explican los tiempos para tu caso específico.',
+      'La recuperación incluye cuidados de incisiones, medicación, prendas de compresión y controles postoperatorios. Cada paciente tiene un plan personalizado.',
     ],
     abdominoplastia: [
-      'La abdominoplastia corrige el exceso de piel y la flacidez abdominal. Es común después del embarazo o de una pérdida significativa de peso. También puede incluir reparación de los músculos abdominales cuando están separados (diástasis). Se requiere una evaluación individual para determinar si eres candidato y explicar los resultados esperados.',
-      'La cirugía de abdomen no es un procedimiento para bajar de peso, sino para remodelar y tensar la pared abdominal. Los mejores resultados se obtienen en personas con peso estable y buena salud general.',
+      'La abdominoplastia corrige el exceso de piel y flacidez abdominal, común después del embarazo o pérdida de peso significativa. Puede incluir reparación de diástasis de los rectos abdominales.',
+      'La cirugía de abdomen remodela y tensa la pared abdominal. Los mejores resultados se obtienen en personas con peso estable y buena salud.',
     ],
     nariz: [
-      'La rinoplastia busca armonizar la nariz con el rostro, mejorando tanto la estética como la función respiratoria. El Dr. Fabian Victoria evalúa la anatomía nasal interna y externa para determinar el enfoque adecuado. Los resultados son naturales y proporcionados a cada paciente.',
-      'La cirugía de nariz puede mejorar la respiración y la apariencia facial al mismo tiempo. Se requiere una valoración detallada para entender tus objetivos y determinar si eres candidato.',
+      'La rinoplastia armoniza la nariz con el rostro, mejorando estética y función respiratoria. Se evalúa la anatomía nasal interna y externa para determinar el enfoque adecuado.',
+      'La cirugía de nariz puede mejorar la respiración y la apariencia facial simultáneamente.',
     ],
     parpados: [
-      'La blefaroplastia mejora el aspecto de los párpados superiores e inferiores, eliminando el exceso de piel, bolsas grasosas y arrugas. Ayuda a rejuvenecer la mirada y, en algunos casos, puede mejorar el campo visual cuando el párpado superior cae. Es un procedimiento ambulatorio con recuperación relativamente rápida.',
-      'Si sientes que tu mirada se ve cansada o los párpados tienen exceso de piel, la blefaroplastia puede ser una opción. Los resultados son naturales y duraderos. Agenda tu valoración para conocer más.',
+      'La blefaroplastia rejuvenece la mirada eliminando exceso de piel y bolsas en los párpados. Es ambulatoria con recuperación relativamente rápida.',
+      'Si sientes que tu mirada se ve cansada, la blefaroplastia puede ser una opción. Los resultados son naturales y duraderos.',
     ],
     cicatriz: [
-      'Toda cirugía deja cicatrices, pero el Dr. Fabian Victoria realiza incisiones en zonas estratégicas para que sean lo menos visibles posible (pliegues naturales, líneas de tensión mínima). Con el tiempo y los cuidados adecuados (protección solar, masajes, silicona), las cicatrices tienden a atenuarse significativamente.',
-      'El manejo de cicatrices es parte fundamental del resultado final. Durante el postoperatorio se dan indicaciones precisas para optimizar la cicatrización. La genética y los cuidados del paciente influyen en el resultado.',
+      'Toda cirugía deja cicatrices, pero se realizan incisiones en zonas estratégicas para que sean lo menos visibles. Con protección solar y cuidados, se atenúan significativamente.',
+      'El manejo de cicatrices es parte del resultado final. Se dan indicaciones precisas para optimizar la cicatrización.',
     ],
     edad: [
-      'No hay una edad única para someterse a una cirugía plástica. Se requiere ser mayor de edad y tener un desarrollo anatómico completo. Más importante que la edad cronológica son la salud general, las expectativas realistas y la motivación del paciente. Cada caso se evalúa individualmente.',
-      'La edad ideal depende más de tu salud y necesidades que de un número. Personas de diferentes edades se benefician de la cirugía plástica cuando están en buenas condiciones de salud y tienen expectativas claras.',
+      'No hay una edad única. Se requiere ser mayor de edad con desarrollo anatómico completo. Más importante que la edad son la salud general y las expectativas realistas.',
+      'La edad ideal depende más de tu salud que de un número. Personas de diferentes edades se benefician de la cirugía plástica.',
     ],
     ejercicio: [
-      'El retorno al ejercicio depende del tipo de procedimiento. Generalmente se recomienda: caminar desde el día siguiente, actividades ligeras después de 2 semanas, y ejercicio intenso (pesas, cardio fuerte) entre 4 y 8 semanas. El Dr. Victoria dará indicaciones precisas según tu caso.',
-      'Es importante no apresurar el retorno al ejercicio para evitar complicaciones. Escucha a tu cuerpo y sigue las indicaciones médicas. Cada procedimiento tiene tiempos diferentes.',
+      'El retorno al ejercicio depende del procedimiento: caminar desde el día siguiente, actividades ligeras a las 2 semanas, ejercicio intenso de 4 a 8 semanas.',
+      'No apresures el retorno al ejercicio. Sigue las indicaciones médicas para evitar complicaciones.',
     ],
     tabaco: [
-      'El tabaco afecta significativamente la cicatrización y aumenta el riesgo de complicaciones como necrosis de la piel, infecciones y mala calidad de las cicatrices. Se recomienda suspender su uso al menos 4 semanas antes y 4 semanas después de cualquier cirugía. Es una recomendación médica estricta, no opcional.',
-      'Fumar interfiere con el flujo sanguíneo necesario para una buena cicatrización. Los cirujanos generalmente exigen la suspensión del tabaco antes de operar. Es por tu seguridad y para garantizar los mejores resultados.',
+      'El tabaco afecta la cicatrización y aumenta riesgos de complicaciones. Debe suspenderse al menos 4 semanas antes y 4 semanas después de cualquier cirugía. Es una recomendación médica estricta.',
+      'Fumar interfiere con el flujo sanguíneo necesario para la cicatrización. Los cirujanos exigen suspenderlo antes de operar por tu seguridad.',
     ],
     dolor: [
-      'Los procedimientos se realizan bajo anestesia (local, regional o general), por lo que no sentirás dolor durante la cirugía. En el postoperatorio, se maneja el dolor con medicamentos orales o intravenosos según la necesidad. La mayoría de los pacientes reportan molestias manejables, no dolor intenso.',
-      'El control del dolor es una prioridad. Se utilizan protocolos de analgesia multimodal para mantenerte cómodo durante la recuperación. Cualquier molestia se trata de forma oportuna.',
+      'Los procedimientos se realizan bajo anestesia, no sentirás dolor durante la cirugía. En el postoperatorio se maneja con medicación. La mayoría reporta molestias manejables.',
+      'El control del dolor es una prioridad. Se usan protocolos de analgesia para mantenerte cómodo durante la recuperación.',
     ],
     riesgo: [
-      'Como toda cirugía, existen riesgos que se explican detalladamente durante la valoración: sangrado, infección, reacciones a la anestesia, mala cicatrización, asimetrías, etc. La evaluación prequirúrgica (exámenes, historia clínica, valoración cardiológica si aplica) permite minimizar estos riesgos y determinar si el paciente está en condiciones óptimas.',
-      'La seguridad del paciente es la prioridad número uno. El Dr. Victoria realiza una evaluación completa antes de cualquier procedimiento para identificar y mitigar riesgos. Todas las dudas sobre riesgos se resuelven en la valoración.',
+      'Como toda cirugía existen riesgos: sangrado, infección, reacciones a la anestesia, mala cicatrización. La evaluación prequirúrgica los minimiza.',
+      'La seguridad del paciente es la prioridad. El Dr. Victoria realiza una evaluación completa antes de cualquier procedimiento.',
     ],
     eps: [
-      'La cirugía estética no está cubierta por el sistema de salud colombiano (EPS). Los costos son asumidos por el paciente. Para cirugías reconstructivas (post-trauma, post-oncológicas, malformaciones), aplican otros criterios y pueden tener cobertura parcial. Esto se determina en la valoración médica.',
-      'Si tu procedimiento tiene un componente reconstructivo, puede haber opciones de cobertura. El Dr. Victoria evalúa cada caso y te orienta sobre los pasos a seguir.',
+      'La cirugía estética no está cubierta por EPS. Los costos son asumidos por el paciente. Para cirugías reconstructivas aplican otros criterios.',
+      'Si tu procedimiento tiene componente reconstructivo, puede haber opciones de cobertura. El Dr. Victoria te orientará.',
     ],
     mommy: [
-      'El Mommy Makeover es un plan integral de procedimientos combinados diseñado para mujeres después del embarazo y la lactancia. Puede incluir abdominoplastia, aumento o levantamiento mamario, liposucción y otros procedimientos según las necesidades de cada paciente. Se realiza en una o varias cirugías, según la valoración médica y la seguridad del paciente.',
-      'El embarazo transforma el cuerpo. El Mommy Makeover está diseñado para ayudarte a recuperar tu silueta y confianza. Cada plan es único y se construye alrededor de tus necesidades específicas.',
+      'El Mommy Makeover combina procedimientos post-embarazo: abdominoplastia, aumento/levantamiento mamario, liposucción. Cada plan es único.',
+      'El embarazo transforma el cuerpo. El Mommy Makeover está diseñado para recuperar tu silueta y confianza.',
     ],
-    pregunta: [
-      '¡Excelente pregunta! Para darte una respuesta precisa y personalizada, te recomiendo agendar una valoración médica con el Dr. Fabian Victoria. Mientras tanto, puedes escribirnos al WhatsApp +57 320 911 5240 y con gusto resolveremos tus inquietudes iniciales.',
-      'Entiendo tu curiosidad. La mejor manera de obtener información clara y confiable es mediante una valoración presencial, donde podremos revisar tu caso en detalle. Escríbenos al WhatsApp y te guiaremos en el proceso.',
+    consumir: [
+      'Antes de una cirugía plástica, el Dr. Fabian Victoria indica suspender: tabaco (mínimo 4 semanas antes), alcohol (al menos 48 horas antes), anticoagulantes como aspirina, ibuprofeno y algunos suplementos herbales. La noche anterior solo debes consumir líquidos claros hasta 6 horas antes. Todos estos requisitos se explican detalladamente en la valoración prequirúrgica.',
+      'La preparación preoperatoria incluye: ayuno de 6-8 horas, suspender tabaco y alcohol, evitar medicamentos anticoagulantes. Recibirás indicaciones precisas durante tu valoración.',
+    ],
+    que_puedo: [
+      'Puedo ayudarte con información sobre cirugía plástica, estética y reconstructiva. Pregúntame sobre procedimientos como liposucción, mamoplastia, abdominoplastia, rinoplastia, blefaroplastia, cuidados pre y postoperatorios, valoraciones médicas y más. Si tengo la información en mi base de conocimiento, te responderé con detalles. De lo contrario, te recomendaré agendar una valoración.',
+      '¡Claro! Estoy aquí para resolver tus dudas sobre cirugía plástica. Puedo hablarte de procedimientos, recuperación, cuidados, requisitos y más. ¿Qué te gustaría saber?',
     ],
   }
 
   const categories = [
+    { patterns: ['consumir', 'dejar de', 'suspender', 'ayuno', 'comer', 'beber', 'alcohol', 'medicamento', 'pastilla', 'preoperatorio', 'pre-cirugía', 'antes de la cirugía', 'preparación', 'prepararme'], key: 'consumir' },
+    { patterns: ['puedes', 'puedes responder', 'qué puedes', 'que haces', 'ayuda', 'información', 'todo'], key: 'que_puedo' },
     { patterns: ['valoración', 'consulta', 'cita', 'agendar', 'primer paso', 'evaluación', 'diagnóstico', 'presencial'], key: 'valoracion' },
     { patterns: ['precio', 'costo', 'valor', 'cuánto', 'presupuesto', 'tarifa', 'pago', 'financiación', 'cuota', 'pagas', 'costos'], key: 'precio' },
     { patterns: ['lipo', 'grasa', 'contorno', 'silueta', 'cintura', 'cartucheras', 'abdomen grasa'], key: 'lipo' },
@@ -184,7 +222,11 @@ function keywordFallback(message: string): string {
     }
   }
 
-  return 'Gracias por tu consulta. Para darte una respuesta precisa y personalizada, te recomiendo agendar una valoración médica con el Dr. Fabian Victoria. Escríbenos al WhatsApp +57 320 911 5240 y con gusto resolveremos tus dudas.'
+  if (knowledgeContext) {
+    return `Según la documentación proporcionada por el Dr. Fabian Victoria:\n\n${knowledgeContext.split('\n').slice(1, 8).join('\n')}\n\n¿Te gustaría saber algo más en específico? También puedes agendar una valoración al WhatsApp +57 320 911 5240.`
+  }
+
+  return '¡Hola! Soy el asistente virtual del Dr. Fabian Victoria. Puedo ayudarte con información sobre cirugía plástica, estética y reconstructiva. Pregúntame sobre procedimientos específicos, cuidados preoperatorios, recuperación, requisitos y más. ¿En qué puedo ayudarte hoy?'
 }
 
 export async function POST(req: NextRequest) {
@@ -197,8 +239,10 @@ export async function POST(req: NextRequest) {
 
     const trimmed = message.trim().slice(0, 1000)
 
-    const aiResponse = await queryAI(trimmed)
-    const response = aiResponse || keywordFallback(trimmed)
+    const knowledgeContext = await searchKnowledge(trimmed)
+
+    const aiResponse = await queryAI(trimmed, knowledgeContext)
+    const response = aiResponse || keywordFallback(trimmed, knowledgeContext)
 
     return NextResponse.json({ response })
   } catch {
