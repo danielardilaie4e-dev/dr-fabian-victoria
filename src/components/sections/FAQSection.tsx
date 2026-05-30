@@ -85,7 +85,8 @@ export function FAQSection() {
   const debouncedSearch = useDebounce(search, 200)
   const listRef = useRef<HTMLDivElement>(null)
 
-  const filtered = FAQS.filter(
+  const showAll = debouncedSearch.length === 0
+  const filtered = showAll ? [] : FAQS.filter(
     (faq) =>
       faq.q.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
       faq.r.toLowerCase().includes(debouncedSearch.toLowerCase()),
@@ -232,7 +233,7 @@ export function FAQSection() {
 
         <div ref={listRef} className="space-y-3 min-h-[200px]">
           <AnimatePresence mode="popLayout">
-            {(debouncedSearch ? filtered : FAQS).map((faq, i) => {
+            {filtered.map((faq, i) => {
               const realIndex = FAQS.findIndex((f) => f.q === faq.q)
               return (
                 <motion.div
