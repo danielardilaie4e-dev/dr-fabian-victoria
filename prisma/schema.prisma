@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String
+  key       String
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@unique([section, key])
+}
+
+model Procedure {
+  id                 String   @id @default(cuid())
+  name               String
+  category           String
+  description        String
+  benefits           String[]
+  steps              String[]
+  recoveryNotes      String?
+  expectedResult     String?
+  commercialPriority String   @default("media")
+  cta                String
+  iconName           String?
+  visible            Boolean  @default(true)
+  order              Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  text      String
+  author    String?
+  procedure String?
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ContactInquiry {
+  id        String   @id @default(cuid())
+  name      String
+  whatsapp  String
+  procedure String?
+  city      String?
+  message   String?
+  consent   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id          String   @id @default(cuid())
+  url         String
+  thumbUrl    String?
+  category    String?
+  description String?
+  consent     Boolean  @default(true)
+  visible     Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}

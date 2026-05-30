@@ -1,0 +1,103 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { formatWhatsApp } from '@/lib/utils'
+import { Phone, ArrowDown } from 'lucide-react'
+
+export function Hero() {
+  const whatsappUrl = formatWhatsApp('3209115240')
+
+  return (
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F7F3EA] via-white to-[#F7F3EA]/50" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-xl"
+          >
+            <div className="inline-flex items-center gap-2 bg-[#AA8D57]/10 text-[#AA8D57] text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#AA8D57]" />
+              Cirujano Plástico en Cali
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#221E1F] leading-tight mb-6">
+              Cirugía plástica con{' '}
+              <span className="text-[#AA8D57]">precisión médica</span>,
+              estética natural y acompañamiento personalizado
+            </h1>
+
+            <p className="text-lg text-[#A59F90] leading-relaxed mb-8">
+              El Dr. Fabian Victoria brinda atención en cirugía plástica, estética y reconstructiva en Cali,
+              con valoración detallada, planeación responsable y seguimiento postoperatorio.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="gap-2">
+                  <Phone className="w-5 h-5" />
+                  Agendar valoración
+                </Button>
+              </a>
+              <a href="#procedimientos">
+                <Button variant="outline" size="lg">
+                  Ver procedimientos
+                </Button>
+              </a>
+            </div>
+
+            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-[#E4D5A5]/20">
+              <div className="flex -space-x-2">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="w-10 h-10 rounded-full bg-[#AA8D57]/20 border-2 border-white flex items-center justify-center text-xs text-[#AA8D57] font-semibold"
+                  >
+                    {['FV', 'DV', 'MV'][i - 1]}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-[#A59F90]">
+                <span className="text-[#221E1F] font-semibold">+200 pacientes</span> han confiado en su valoración
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="hidden lg:flex items-center justify-center"
+          >
+            <div className="relative">
+              <div className="w-96 h-96 rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#E4D5A5]/10" />
+              <div className="absolute inset-4 rounded-full border border-[#AA8D57]/10" />
+              <div className="absolute inset-8 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
+                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#221E1F] to-[#1A1718] flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-[#AA8D57] text-5xl font-serif font-bold">FV</div>
+                    <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIAN VICTORIA</div>
+                    <div className="text-[#AA8D57]/60 text-xs mt-1">Cirujano Plástico</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <ArrowDown className="w-5 h-5 text-[#AA8D57] animate-bounce" />
+      </motion.div>
+    </section>
+  )
+}
