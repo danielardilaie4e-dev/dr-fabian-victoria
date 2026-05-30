@@ -1,29 +1,143 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ProcessTimeline3D } from '@/components/three'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { MessageCircle, Search, ClipboardList, Stethoscope, Heart } from 'lucide-react'
+
+const STEPS = [
+  {
+    icon: MessageCircle,
+    label: 'Contacto',
+    desc: 'Agenda tu valoración por WhatsApp o formulario web. El primer paso es una conversación sin compromiso.',
+    color: '#AA8D57',
+  },
+  {
+    icon: Search,
+    label: 'Valoración',
+    desc: 'Evaluación médica personalizada: revisamos tu caso, antecedentes, expectativas y definimos si hay indicación médica.',
+    color: '#AA8D57',
+  },
+  {
+    icon: ClipboardList,
+    label: 'Planeación',
+    desc: 'Diseñamos el plan quirúrgico a tu medida, explicamos riesgos, beneficios, cuidados y resolvemos todas tus dudas.',
+    color: '#AA8D57',
+  },
+  {
+    icon: Stethoscope,
+    label: 'Procedimiento',
+    desc: 'Cirugía en entorno clínico seguro, con equipo especializado y siguiendo los más altos estándares médicos.',
+    color: '#AA8D57',
+  },
+  {
+    icon: Heart,
+    label: 'Recuperación',
+    desc: 'Seguimiento postoperatorio cercano, controles programados y acompañamiento permanente para tu tranquilidad.',
+    color: '#AA8D57',
+  },
+]
 
 export function ProcessSection() {
+  const [activeStep, setActiveStep] = useState(0)
+
   return (
-    <section id="proceso" className="py-24 bg-surface/80 backdrop-blur-sm">
+    <section id="proceso" className="py-24 bg-gradient-to-b from-[#0a0a0a] via-surface to-[#0a0a0a]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-12"
+          className="text-center max-w-2xl mx-auto mb-16"
         >
           <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Tu Proceso</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             Tu seguridad es parte central del proceso
           </h2>
-          <p className="text-neutral">
+          <p className="text-[#D4CDBD]">
             La valoración, la planeación quirúrgica y el seguimiento permiten tomar decisiones informadas,
             resolver dudas y definir si un procedimiento es adecuado para tu caso.
           </p>
         </motion.div>
 
-        <ProcessTimeline3D />
+        <div className="max-w-4xl mx-auto">
+          <div className="relative flex justify-between items-start mb-12">
+            {STEPS.map((step, i) => {
+              const Icon = step.icon
+              const isActive = i <= activeStep
+              const isCurrent = i === activeStep
+
+              return (
+                <button
+                  key={step.label}
+                  onClick={() => setActiveStep(i)}
+                  className="flex flex-col items-center gap-2 group z-10"
+                >
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      isCurrent
+                        ? 'bg-secondary text-white shadow-lg shadow-secondary/30 scale-110'
+                        : isActive
+                          ? 'bg-secondary/20 text-secondary'
+                          : 'bg-card border border-card-border text-muted'
+                    }`}
+                  >
+                    <Icon className="w-6 h-6" />
+                  </motion.div>
+                  <span className={`text-xs font-medium transition-colors ${
+                    isCurrent ? 'text-secondary' : isActive ? 'text-white' : 'text-muted'
+                  }`}>
+                    {step.label}
+                  </span>
+                </button>
+              )
+            })}
+
+            <div className="absolute top-7 left-0 right-0 h-px bg-card-border -z-0">
+              <motion.div
+                className="h-full bg-secondary"
+                initial={{ width: '0%' }}
+                animate={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+              />
+            </div>
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="bg-card/60 border border-card-border rounded-2xl p-6 sm:p-8 text-center max-w-2xl mx-auto"
+            >
+              <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
+                {(() => {
+                  const Icon = STEPS[activeStep].icon
+                  return <Icon className="w-7 h-7 text-secondary" />
+                })()}
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3">{STEPS[activeStep].label}</h3>
+              <p className="text-[#D4CDBD] leading-relaxed">{STEPS[activeStep].desc}</p>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="flex justify-center gap-2 mt-6">
+            {STEPS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveStep(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  i === activeStep ? 'bg-secondary w-5' : 'bg-muted/50 hover:bg-muted'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
