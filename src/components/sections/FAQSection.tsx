@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Search, Send, MessageCircle, ChevronRight } from 'lucide-react'
+import { ChevronDown, Search, Send, Bot, MessageCircle, ChevronRight, Sparkles } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { formatWhatsApp } from '@/lib/utils'
 
@@ -39,6 +39,34 @@ const FAQS = [
     q: '¿Cómo se manejan las fotos antes y después?',
     r: 'Deben manejarse con autorización del paciente, respeto por la privacidad y claridad de que los resultados varían en cada caso.',
   },
+  {
+    q: '¿Duele la cirugía plástica?',
+    r: 'Los procedimientos se realizan bajo anestesia, por lo que no sentirás dolor durante la cirugía. En el postoperatorio se maneja el dolor con medicamentos según la necesidad de cada paciente.',
+  },
+  {
+    q: '¿A partir de qué edad se puede hacer una cirugía plástica?',
+    r: 'Depende del procedimiento y la valoración médica. En general, se espera que el paciente sea mayor de edad y tenga un desarrollo anatómico completo. Cada caso se evalúa individualmente.',
+  },
+  {
+    q: '¿Las cicatrices son visibles después de la cirugía?',
+    r: 'Toda cirugía deja cicatrices, pero se realizan incisiones en zonas estratégicas para que sean lo menos visibles posible. Con el tiempo y los cuidados adecuados, tienden a atenuarse.',
+  },
+  {
+    q: '¿Cuándo puedo retomar el ejercicio después de una cirugía?',
+    r: 'Depende del tipo de procedimiento. Generalmente se recomienda esperar entre 4 y 8 semanas antes de retomar actividad física intensa. En la valoración se dan indicaciones precisas.',
+  },
+  {
+    q: '¿Qué riesgos tiene la cirugía plástica?',
+    r: 'Como toda cirugía, existen riesgos que se explican detalladamente durante la valoración. La evaluación prequirúrgica permite minimizarlos y determinar si el paciente está en condiciones óptimas.',
+  },
+  {
+    q: '¿Necesito autorización de mi EPS para una cirugía estética?',
+    r: 'La cirugía estética no está cubierta por el sistema de salud. Los costos son asumidos por el paciente. Para cirugías reconstructivas aplican otros criterios.',
+  },
+  {
+    q: '¿El tabaco afecta los resultados de la cirugía?',
+    r: 'Sí. El tabaco interfiere con la cicatrización y aumenta el riesgo de complicaciones. Se recomienda suspender su uso varias semanas antes y después del procedimiento.',
+  },
 ]
 
 function useDebounce<T>(value: T, delay = 300): T {
@@ -63,7 +91,13 @@ export function FAQSection() {
       faq.r.toLowerCase().includes(debouncedSearch.toLowerCase()),
   )
 
+  const hasMatch = filtered.length > 0
   const whatsappUrl = formatWhatsApp('3209115240')
+
+  const openChat = () => {
+    const chatBtn = document.querySelector('[aria-label="Chat con IA"]') as HTMLButtonElement
+    chatBtn?.click()
+  }
 
   return (
     <section id="faq" className="py-24 bg-surface/80 backdrop-blur-sm">
@@ -130,20 +164,7 @@ export function FAQSection() {
                 transition={{ duration: 0.2 }}
                 className="absolute top-full left-0 right-0 mt-2 rounded-xl border border-card-border bg-card shadow-2xl overflow-hidden z-50"
               >
-                {filtered.length === 0 ? (
-                  <div className="px-4 py-8 text-center">
-                    <p className="text-muted text-sm">No encontramos esa pregunta</p>
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-secondary text-sm mt-2 hover:underline"
-                    >
-                      Pregunta directamente al doctor
-                      <ChevronRight className="w-3 h-3" />
-                    </a>
-                  </div>
-                ) : (
+                {hasMatch && (
                   <ul className="py-2">
                     {filtered.map((faq, i) => (
                       <motion.li
@@ -166,8 +187,44 @@ export function FAQSection() {
                         </button>
                       </motion.li>
                     ))}
+                    <li className="border-t border-card-border/50 mx-3 my-1" />
                   </ul>
                 )}
+
+                <div className={`px-4 py-3 ${hasMatch ? '' : 'py-6'}`}>
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-5 h-5 text-secondary shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground">
+                        {hasMatch ? '¿No es lo que buscas?' : 'No encontramos esa pregunta'}
+                      </p>
+                      <p className="text-xs text-muted mt-0.5">
+                        Pregúntale a nuestro asistente con IA
+                      </p>
+                    </div>
+                    <button
+                      onMouseDown={openChat}
+                      className="flex items-center gap-1 text-secondary text-sm font-medium hover:underline shrink-0"
+                    >
+                      Preguntar
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
+
+                  {!hasMatch && (
+                    <div className="mt-3 pt-3 border-t border-card-border/50 flex items-center gap-2">
+                      <a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-xs text-muted hover:text-secondary transition-colors"
+                      >
+                        <Bot className="w-3 h-3" />
+                        Habla con el doctor por WhatsApp
+                      </a>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

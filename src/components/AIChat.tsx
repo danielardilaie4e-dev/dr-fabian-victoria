@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react'
 
@@ -16,18 +16,41 @@ export function AIChat() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [streamingText, setStreamingText] = useState('')
+  const [streamingTarget, setStreamingTarget] = useState('')
   const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    if (open) inputRef.current?.focus()
+    if (open) setTimeout(() => inputRef.current?.focus(), 100)
   }, [open])
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
-  }, [messages])
+  }, [messages, streamingText])
 
-  const send = async () => {
+  useEffect(() => {
+    if (!streamingTarget) {
+      setStreamingText('')
+      return
+    }
+    let idx = 0
+    setStreamingText('')
+    intervalRef.current = setInterval(() => {
+      idx++
+      setStreamingText(streamingTarget.slice(0, idx))
+      if (idx >= streamingTarget.length) {
+        if (intervalRef.current) clearInterval(intervalRef.current)
+        setStreamingTarget('')
+      }
+    }, 25)
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [streamingTarget])
+
+  const send = useCallback(async () => {
     const text = input.trim()
     if (!text || loading) return
 
@@ -42,12 +65,16 @@ export function AIChat() {
         body: JSON.stringify({ message: text }),
       })
       const data = await res.json()
-      setMessages((prev) => [...prev, { role: 'bot', text: data.response || 'No pude procesar tu consulta. Por favor escríbenos al WhatsApp.' }])
+      const responseText = data.response || 'No pude procesar tu consulta. Por favor escríbenos al WhatsApp.'
+      setMessages((prev) => [...prev, { role: 'bot', text: responseText }])
+      setStreamingTarget(responseText)
     } catch {
-      setMessages((prev) => [...prev, { role: 'bot', text: 'Ocurrió un error. Por favor intenta de nuevo o contáctanos por WhatsApp.' }])
+      const errText = 'Ocurrió un error. Por favor intenta de nuevo o contáctanos por WhatsApp.'
+      setMessages((prev) => [...prev, { role: 'bot', text: errText }])
+      setStreamingTarget(errText)
     }
     setLoading(false)
-  }
+  }, [input, loading])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -81,37 +108,46 @@ export function AIChat() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Dr. Fabian Victoria</p>
-                <p className="text-xs text-white/70">Asistente virtual</p>
+                <p className="text-xs text-white/70">Asistente virtual con IA</p>
               </div>
             </div>
 
             <div ref={listRef} className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((msg, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`flex gap-2 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
-                >
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
-                    msg.role === 'user' ? 'bg-secondary/20' : 'bg-surface'
-                  }`}>
-                    {msg.role === 'user' ? (
-                      <User className="w-3.5 h-3.5 text-secondary" />
-                    ) : (
-                      <Bot className="w-3.5 h-3.5 text-muted" />
-                    )}
-                  </div>
-                  <div className={`max-w-[80%] rounded-xl px-3 py-2 text-sm ${
-                    msg.role === 'user'
-                      ? 'bg-secondary text-white rounded-tr-sm'
-                      : 'bg-surface text-foreground rounded-tl-sm'
-                  }`}>
-                    {msg.text}
-                  </div>
-                </motion.div>
-              ))}
+              {messages.map((msg, i) => {
+                const isStreaming = streamingTarget && i === messages.length - 1 && msg.role === 'bot'
+                const display = isStreaming ? streamingText : msg.text
+                const isComplete = !isStreaming || streamingText === msg.text
+
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={`flex gap-2 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+                  >
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                      msg.role === 'user' ? 'bg-secondary/20' : 'bg-surface'
+                    }`}>
+                      {msg.role === 'user' ? (
+                        <User className="w-3.5 h-3.5 text-secondary" />
+                      ) : (
+                        <Bot className="w-3.5 h-3.5 text-muted" />
+                      )}
+                    </div>
+                    <div className={`max-w-[80%] rounded-xl px-3 py-2 text-sm ${
+                      msg.role === 'user'
+                        ? 'bg-secondary text-white rounded-tr-sm'
+                        : 'bg-surface text-foreground rounded-tl-sm'
+                    }`}>
+                      {display}
+                      {!isComplete && (
+                        <span className="inline-block w-0.5 h-4 bg-secondary/60 ml-0.5 animate-pulse align-middle" />
+                      )}
+                    </div>
+                  </motion.div>
+                )
+              })}
               {loading && (
                 <div className="flex gap-2">
                   <div className="w-7 h-7 rounded-full bg-surface flex items-center justify-center shrink-0">
