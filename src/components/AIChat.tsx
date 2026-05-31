@@ -16,6 +16,7 @@ export function AIChat() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [streamingText, setStreamingText] = useState('')
   const [streamingTarget, setStreamingTarget] = useState('')
   const listRef = useRef<HTMLDivElement>(null)
@@ -44,7 +45,7 @@ export function AIChat() {
         if (intervalRef.current) clearInterval(intervalRef.current)
         setStreamingTarget('')
       }
-    }, 25)
+    }, 20)
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
@@ -52,29 +53,42 @@ export function AIChat() {
 
   const send = useCallback(async () => {
     const text = input.trim()
-    if (!text || loading) return
+    if (!text) return
 
+    setError('')
     setMessages((prev) => [...prev, { role: 'user', text }])
     setInput('')
     setLoading(true)
 
     try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 15000)
+
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }),
+        signal: controller.signal,
       })
+      clearTimeout(timeout)
+
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}`)
+      }
+
       const data = await res.json()
-      const responseText = data.response || 'No pude procesar tu consulta. Por favor escríbenos al WhatsApp.'
+      const responseText = data.response || 'Lo siento, no pude procesar tu consulta. Por favor escríbenos al WhatsApp +57 320 911 5240.'
       setMessages((prev) => [...prev, { role: 'bot', text: responseText }])
       setStreamingTarget(responseText)
-    } catch {
-      const errText = 'Ocurrió un error. Por favor intenta de nuevo o contáctanos por WhatsApp.'
-      setMessages((prev) => [...prev, { role: 'bot', text: errText }])
-      setStreamingTarget(errText)
+    } catch (err) {
+      const errMsg = err instanceof Error && err.name === 'AbortError'
+        ? 'La respuesta está tardando mucho. Por favor intenta de nuevo o escríbenos al WhatsApp +57 320 911 5240.'
+        : 'Ocurrió un error al conectar. Por favor intenta de nuevo o contáctanos por WhatsApp +57 320 911 5240.'
+      setMessages((prev) => [...prev, { role: 'bot', text: errMsg }])
+      setStreamingTarget(errMsg)
     }
     setLoading(false)
-  }, [input, loading])
+  }, [input])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -87,7 +101,7 @@ export function AIChat() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-20 right-6 z-50 w-14 h-14 rounded-full bg-secondary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center"
+        className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-secondary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center"
         aria-label="Chat con IA"
       >
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
@@ -100,7 +114,7 @@ export function AIChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-36 right-6 z-50 w-80 sm:w-96 h-[500px] rounded-2xl border border-card-border bg-card shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-40 right-6 z-50 w-80 sm:w-96 h-[500px] rounded-2xl border border-card-border bg-card shadow-2xl flex flex-col overflow-hidden"
           >
             <div className="bg-secondary px-4 py-3 flex items-center gap-3 shrink-0">
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -153,8 +167,9 @@ export function AIChat() {
                   <div className="w-7 h-7 rounded-full bg-surface flex items-center justify-center shrink-0">
                     <Bot className="w-3.5 h-3.5 text-muted" />
                   </div>
-                  <div className="bg-surface rounded-xl rounded-tl-sm px-3 py-2">
-                    <Loader2 className="w-4 h-4 animate-spin text-muted" />
+                  <div className="bg-surface rounded-xl rounded-tl-sm px-4 py-2 flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin text-secondary" />
+                    <span className="text-xs text-muted">Escribiendo respuesta...</span>
                   </div>
                 </div>
               )}

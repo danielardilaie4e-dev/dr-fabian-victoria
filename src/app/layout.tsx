@@ -42,9 +42,9 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Providers>
           <DottedSurface />
+          <div className="relative z-10">{children}</div>
           <WhatsAppButton />
           <AIChat />
-          {children}
         </Providers>
       </body>
     </html>
