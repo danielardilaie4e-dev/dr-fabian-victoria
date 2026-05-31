@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { formatWhatsApp } from '@/lib/utils'
 import { AnimatedSocialLinks } from '@/components/ui/AnimatedSocialLinks'
-import { Phone, MapPin, Shield } from 'lucide-react'
+import { Phone, MapPin, Shield, Clock, Navigation } from 'lucide-react'
 import { useState } from 'react'
 
 export function ContactSection() {
@@ -60,9 +60,22 @@ export function ContactSection() {
                 <span>+57 320 911 5240</span>
               </a>
               <div className="flex items-center gap-3 text-neutral">
-                <MapPin className="w-5 h-5 text-secondary" />
-                <span>Cali, Colombia</span>
+                <MapPin className="w-5 h-5 text-secondary shrink-0" />
+                <span>Cali, Colombia — Atención presencial con valoración médica</span>
               </div>
+              <div className="flex items-center gap-3 text-neutral">
+                <Clock className="w-5 h-5 text-secondary shrink-0" />
+                <span>Agenda tu valoración por WhatsApp o mediante el formulario</span>
+              </div>
+              <a
+                href="https://maps.google.com/?q=Cali+Colombia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-secondary text-sm hover:underline"
+              >
+                <Navigation className="w-4 h-4" />
+                Cómo llegar
+              </a>
             </div>
 
             <AnimatedSocialLinks />

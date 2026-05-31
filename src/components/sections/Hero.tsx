@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
 import { SpecialText } from '@/components/ui/SpecialText'
-import { Phone, ArrowDown } from 'lucide-react'
+import { Phone, ArrowDown, GraduationCap, Award, Shield } from 'lucide-react'
 
 export function Hero() {
   const whatsappUrl = formatWhatsApp('3209115240')
@@ -26,6 +26,23 @@ export function Hero() {
               Cirujano Plástico en Cali
             </div>
 
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral/80 mb-4">
+              <span className="flex items-center gap-1">
+                <GraduationCap className="w-3.5 h-3.5 text-secondary" />
+                Universidad del Valle
+              </span>
+              <span className="w-1 h-1 rounded-full bg-neutral/30" />
+              <span className="flex items-center gap-1">
+                <Award className="w-3.5 h-3.5 text-secondary" />
+                Miembro SCCP
+              </span>
+              <span className="w-1 h-1 rounded-full bg-neutral/30" />
+              <span className="flex items-center gap-1">
+                <Shield className="w-3.5 h-3.5 text-secondary" />
+                Cirugía Estética y Reconstructiva
+              </span>
+            </div>
+
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
               Cirugía plástica con{' '}
               <span className="text-secondary">precisión médica</span>,
@@ -36,7 +53,7 @@ export function Hero() {
             </h1>
 
             <p className="text-lg text-neutral leading-relaxed mb-8">
-              El Dr. Fabian Victoria brinda atención en cirugía plástica, estética y reconstructiva en Cali,
+              El Dr. Fabián Victoria brinda atención en cirugía plástica, estética y reconstructiva en Cali,
               con valoración detallada, planeación responsable y seguimiento postoperatorio.
             </p>
 
@@ -84,7 +101,7 @@ export function Hero() {
                 <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-secondary/20">
                   <div className="text-center">
                     <div className="text-secondary text-5xl font-serif font-bold">FV</div>
-                    <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIAN VICTORIA</div>
+                    <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIÁN VICTORIA</div>
                     <div className="text-secondary/60 text-xs mt-1">Cirujano Plástico</div>
                   </div>
                 </div>

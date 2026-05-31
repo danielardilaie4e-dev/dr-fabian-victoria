@@ -19,12 +19,12 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Dr. Fabian Victoria | Cirujano Plástico en Cali',
+  title: 'Dr. Fabián Victoria | Cirujano Plástico en Cali',
   description:
-    'Cirugía plástica, estética y reconstructiva en Cali. Agenda una valoración médica personalizada con el Dr. Fabian Victoria.',
+    'Cirugía plástica, estética y reconstructiva en Cali. Agenda una valoración médica personalizada con el Dr. Fabián Victoria.',
   keywords: [
     'cirujano plástico Cali',
-    'Dr Fabian Victoria',
+    'Dr Fabián Victoria',
     'cirugía plástica Cali',
     'cirugía estética Cali',
     'liposucción Cali',

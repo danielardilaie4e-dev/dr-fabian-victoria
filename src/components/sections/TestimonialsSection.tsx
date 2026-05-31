@@ -9,19 +9,19 @@ const TESTIMONIALS = [
   {
     id: 1,
     name: 'María C.',
-    text: 'Me sentí acompañada durante todo el proceso. La valoración fue clara y pude resolver mis dudas antes de decidir.',
+    text: 'Llegué con muchas dudas sobre la mamoplastia. En la valoración me explicaron tamaños, tipos de implantes, cicatrices y límites reales. Me sentí acompañada durante todo el proceso y los controles postoperatorios fueron puntuales.',
     procedure: 'Mamoplastia',
   },
   {
     id: 2,
     name: 'Andrea L.',
-    text: 'El trato fue profesional y humano. Me explicaron los cuidados y el seguimiento de forma muy clara.',
+    text: 'Lo que más me gustó fue la honestidad: me dijeron claramente qué podía esperar y qué no. La lipoescultura fue exactamente lo que acordamos, la recuperación fue más llevadera de lo que imaginaba y el seguimiento fue constante.',
     procedure: 'Liposucción',
   },
   {
     id: 3,
     name: 'Carolina M.',
-    text: 'Lo que más valoré fue la honestidad sobre lo que era posible en mi caso y el acompañamiento después del procedimiento.',
+    text: 'Después de dos embarazos, la abdominoplastia era algo que quería desde hace años. Me explicaron la recuperación real, los tiempos, las cicatrices y los cuidados. El resultado no fue milagroso, fue médico: mejoría real con expectativas claras.',
     procedure: 'Abdominoplastia',
   },
 ]

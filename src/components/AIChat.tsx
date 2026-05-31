@@ -12,7 +12,7 @@ interface Message {
 export function AIChat() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: '¡Hola! Soy el asistente virtual del Dr. Fabian Victoria. Puedo ayudarte con información sobre procedimientos, valoraciones y resolver tus dudas. ¿En qué puedo ayudarte?' },
+    { role: 'bot', text: '¡Hola! Soy el asistente virtual del Dr. Fabián Victoria. Puedo ayudarte con información sobre procedimientos, valoraciones y resolver tus dudas. ¿En qué puedo ayudarte?' },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -121,7 +121,7 @@ export function AIChat() {
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">Dr. Fabian Victoria</p>
+                <p className="text-sm font-semibold text-white">Dr. Fabián Victoria</p>
                 <p className="text-xs text-white/70">Asistente virtual con IA</p>
               </div>
             </div>

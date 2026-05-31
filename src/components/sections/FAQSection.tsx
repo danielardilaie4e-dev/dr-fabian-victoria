@@ -20,20 +20,20 @@ const FAQS = [
     r: 'No. Los resultados varían según anatomía, salud, técnica, recuperación, cuidados y características individuales.',
   },
   {
-    q: '¿Cuánto tarda la recuperación?',
-    r: 'Depende del procedimiento y del paciente. En la valoración se explican tiempos estimados, cuidados, restricciones y controles.',
+    q: '¿Cuánto tarda la recuperación de una liposucción o abdominoplastia?',
+    r: 'En liposucción las actividades ligeras suelen retomarse a los pocos días, con ejercicio intenso de 4 a 6 semanas. En abdominoplastia el reposo es más prolongado: ejercicio intenso hacia las 8 semanas. Cada caso tiene indicaciones precisas.',
   },
   {
     q: '¿La liposucción sirve para bajar de peso?',
-    r: 'No debe entenderse como tratamiento para bajar de peso. Es un procedimiento de contorno corporal para casos seleccionados.',
+    r: 'No debe entenderse como tratamiento para bajar de peso. Es un procedimiento de contorno corporal para casos seleccionados, ideal para personas con peso estable y grasa localizada.',
   },
   {
     q: '¿Qué incluye el seguimiento postoperatorio?',
-    r: 'Incluye controles médicos y orientación durante la recuperación, según el procedimiento realizado y la evolución del paciente.',
+    r: 'Incluye controles médicos programados, revisión de incisiones, manejo de prendas de compresión, indicaciones de cuidados y monitoreo de la evolución según el procedimiento realizado.',
   },
   {
-    q: '¿Se pueden combinar procedimientos?',
-    r: 'En algunos casos sí, pero depende de la valoración médica, seguridad del paciente, tiempo quirúrgico y condiciones individuales.',
+    q: '¿Se pueden combinar procedimientos como mamoplastia y abdominoplastia?',
+    r: 'En algunos casos sí, como en el Mommy Makeover. Depende de la valoración médica, tiempo quirúrgico, seguridad del paciente y condiciones individuales. El Dr. Victoria evaluará si eres candidato.',
   },
   {
     q: '¿Cómo se manejan las fotos antes y después?',
@@ -66,6 +66,18 @@ const FAQS = [
   {
     q: '¿El tabaco afecta los resultados de la cirugía?',
     r: 'Sí. El tabaco interfiere con la cicatrización y aumenta el riesgo de complicaciones. Se recomienda suspender su uso varias semanas antes y después del procedimiento.',
+  },
+  {
+    q: '¿Qué cuidados debo tener antes de una rinoplastia?',
+    r: 'Se realiza una evaluación anatómica y funcional de la nariz, se suspenden anticoagulantes y tabaco, y se planifica el abordaje según tu anatomía. Los resultados estéticos y funcionales se evalúan en conjunto.',
+  },
+  {
+    q: '¿La blefaroplastia requiere hospitalización?',
+    r: 'No, la blefaroplastia es un procedimiento ambulatorio. Se realiza con anestesia local y sedación. La recuperación es relativamente rápida y los resultados rejuvenecen la mirada de forma natural.',
+  },
+  {
+    q: '¿Qué es el Mommy Makeover y para quién es?',
+    r: 'Es un plan integral post-embarazo que combina abdominoplastia, aumento o levantamiento mamario y liposucción según cada caso. Está diseñado para mujeres que desean recuperar su silueta después de la maternidad.',
   },
 ]
 

@@ -1,28 +1,28 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, MapPin, HeartHandshake, Stethoscope } from 'lucide-react'
+import { Shield, MapPin, HeartHandshake, Stethoscope, Users, ClipboardCheck } from 'lucide-react'
 
 const TRUST_ITEMS = [
   {
+    icon: Users,
+    title: '+200 pacientes valorados',
+    desc: 'Atención personalizada en Cali con evaluación médica individual y seguimiento continuo.',
+  },
+  {
     icon: Stethoscope,
     title: 'Cirugía Plástica, Estética y Reconstructiva',
-    desc: 'Especialidad completa con enfoque en seguridad y resultados naturales.',
+    desc: 'Especialidad completa con enfoque en seguridad, resultados naturales y criterio médico responsable.',
   },
   {
-    icon: MapPin,
-    title: 'Ubicado en Cali',
-    desc: 'Atención presencial en Cali, Colombia, con valoración médica personalizada.',
-  },
-  {
-    icon: Shield,
+    icon: ClipboardCheck,
     title: 'Valoración Médica Obligatoria',
-    desc: 'Cada caso se evalúa individualmente antes de definir cualquier procedimiento.',
+    desc: 'Cada caso se evalúa individualmente antes de definir cualquier procedimiento. No se opera sin evaluación previa.',
   },
   {
     icon: HeartHandshake,
     title: 'Acompañamiento Continuo',
-    desc: 'Seguimiento postoperatorio para garantizar tu tranquilidad y recuperación.',
+    desc: 'Planeación responsable, procedimiento en entorno clínico y seguimiento postoperatorio personalizado.',
   },
 ]
 
