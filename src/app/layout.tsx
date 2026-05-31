@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { DottedSurface } from '@/components/three/DottedSurface'
+import { Navbar } from '@/components/Navbar'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
 import { AIChat } from '@/components/AIChat'
 
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Providers>
           <DottedSurface />
+          <Navbar />
           <div className="relative z-10">{children}</div>
           <WhatsAppButton />
           <AIChat />
