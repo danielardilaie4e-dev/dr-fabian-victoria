@@ -23,6 +23,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   } | null>(null)
 
   useEffect(() => {
+    if (!animated) return
+
     const container = containerRef.current
     if (!container) return
 
@@ -158,31 +160,21 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
         }
       }
     }
-  }, [theme])
-
-  if (!animated) {
-    return (
-      <div
-        className={cn(
-          'pointer-events-none fixed inset-0 z-0',
-          'bg-gradient-to-b from-[#0c0c0c] via-[#111111] to-[#0a0a0a]',
-          'dark:from-[#0c0c0c] dark:via-[#111111] dark:to-[#0a0a0a]',
-          'bg-[length:60px_60px]',
-          className,
-        )}
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(170, 141, 87, 0.06) 1px, transparent 0)',
-        }}
-        {...props}
-      />
-    )
-  }
+  }, [theme, animated])
 
   return (
     <div
       ref={containerRef}
-      className={cn('pointer-events-none fixed inset-0 z-0', className)}
+      className={cn(
+        'pointer-events-none fixed inset-0 z-0',
+        !animated && 'bg-gradient-to-b from-[#0c0c0c] via-[#111111] to-[#0a0a0a]',
+        !animated && 'bg-[length:60px_60px]',
+        className,
+      )}
+      style={!animated ? {
+        backgroundImage:
+          'radial-gradient(circle at 1px 1px, rgba(170, 141, 87, 0.06) 1px, transparent 0)',
+      } : undefined}
       {...props}
     />
   )

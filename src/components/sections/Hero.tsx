@@ -11,7 +11,7 @@ export function Hero() {
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
