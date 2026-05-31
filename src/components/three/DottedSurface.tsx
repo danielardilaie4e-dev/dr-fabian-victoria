@@ -167,7 +167,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       ref={containerRef}
       className={cn(
         'pointer-events-none fixed inset-0 z-0',
-        !animated && 'bg-gradient-to-b from-[#0c0c0c] via-[#111111] to-[#0a0a0a]',
+        !animated && 'bg-gradient-to-b from-background via-card to-background',
         !animated && 'bg-[length:60px_60px]',
         className,
       )}

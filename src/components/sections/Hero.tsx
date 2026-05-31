@@ -14,7 +14,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-transparent to-background/50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -41,7 +41,7 @@ export function Hero() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-foreground leading-tight mb-6">
               {t('hero.headline_1')}{' '}
               <span className="text-secondary">{t('hero.headline_2')}</span>,
               <SpecialText speed={30} delay={0.5}>
@@ -78,19 +78,19 @@ export function Hero() {
               </a>
             </div>
 
-            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-card-border/10">
+            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-card-border">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-secondary/20 border-2 border-[#1a1a1a] flex items-center justify-center text-xs text-secondary font-semibold"
+                    className="w-10 h-10 rounded-full bg-secondary/20 border-2 border-card flex items-center justify-center text-xs text-secondary font-semibold"
                   >
                     {['FV', 'DV', 'MV'][i - 1]}
                   </div>
                 ))}
               </div>
               <p className="text-sm text-neutral">
-                <span className="text-white font-semibold">{t('hero.mas_200')}</span> {t('hero.pacientes')}
+                <span className="text-foreground font-semibold">{t('hero.mas_200')}</span> {t('hero.pacientes')}
               </p>
             </div>
           </motion.div>
@@ -102,10 +102,10 @@ export function Hero() {
             className="hidden lg:flex items-center justify-center"
           >
             <div className="relative">
-              <div className="w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5" />
+              <div className="w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-secondary/20 to-secondary/5" />
               <div className="absolute inset-4 rounded-full border border-secondary/10" />
-              <div className="absolute inset-6 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
-                <div className="w-72 h-72 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-secondary/20 overflow-hidden">
+<div className="absolute inset-6 rounded-full border border-accent/20 flex items-center justify-center">
+                  <div className="w-72 h-72 rounded-full bg-gradient-to-br from-card to-background flex items-center justify-center border border-secondary/20 overflow-hidden">
                   <Image
                     src="/logo.jpg"
                     alt="Dr. Fabián Victoria"

@@ -19,7 +19,7 @@ export function ProcessSection() {
   const [activeStep, setActiveStep] = useState(0)
 
   return (
-    <section id="proceso" className="py-24 bg-gradient-to-b from-[#0a0a0a] via-surface to-[#0a0a0a]">
+    <section id="proceso" className="py-24 bg-gradient-to-b from-background via-surface to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,10 +28,10 @@ export function ProcessSection() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('process.badge')}</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4">
             {t('process.titulo')}
           </h2>
-          <p className="text-[#D4CDBD]">
+          <p className="text-neutral">
             {t('process.desc')}
           </p>
         </motion.div>
@@ -65,7 +65,7 @@ export function ProcessSection() {
                     <Icon className="w-6 h-6" />
                   </motion.div>
                   <span className={`text-xs font-medium transition-colors ${
-                    isCurrent ? 'text-secondary' : isActive ? 'text-white' : 'text-muted'
+                    isCurrent ? 'text-secondary' : isActive ? 'text-foreground' : 'text-muted'
                   }`}>
                     {step.label}
                   </span>
@@ -98,8 +98,8 @@ export function ProcessSection() {
                   return <Icon className="w-7 h-7 text-secondary" />
                 })()}
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">{steps[activeStep].label}</h3>
-              <p className="text-[#D4CDBD] leading-relaxed">{steps[activeStep].desc}</p>
+              <h3 className="text-xl font-semibold text-foreground mb-3">{steps[activeStep].label}</h3>
+              <p className="text-neutral leading-relaxed">{steps[activeStep].desc}</p>
             </motion.div>
           </AnimatePresence>
 

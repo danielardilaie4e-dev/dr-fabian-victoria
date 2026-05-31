@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { BodyContourViewer, BreastHarmonyViewer, FacialProfileViewer } from '@/components/three'
 import { useLocale } from '@/lib/locale-context'
+import { useModels3D } from '@/lib/models3d-context'
 
 const VIEWER_CONFIG = [
   { id: 'body', key: 'cuerpo', component: BodyContourViewer },
@@ -12,6 +13,9 @@ const VIEWER_CONFIG = [
 
 export function Models3DSection() {
   const { t } = useLocale()
+  const { visible } = useModels3D()
+
+  if (!visible) return null
 
   return (
     <section id="modelos-3d" className="py-24 bg-transparent">
@@ -23,7 +27,7 @@ export function Models3DSection() {
           className="mx-auto mb-12 max-w-3xl text-center"
         >
           <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('models3d.badge')}</p>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4">
             {t('models3d.titulo')}
           </h2>
           <p className="text-neutral">
@@ -47,7 +51,7 @@ export function Models3DSection() {
                     <p className="text-xs font-semibold uppercase tracking-wider text-secondary">
                       {t('models3d.etiqueta')}
                     </p>
-                    <h3 className="mt-1 font-serif text-2xl font-bold text-white">{t(`models3d.${v.key}`)}</h3>
+                    <h3 className="mt-1 font-serif text-2xl font-bold text-foreground">{t(`models3d.${v.key}`)}</h3>
                   </div>
                   <p className="max-w-xl text-sm text-neutral sm:text-right">{t(`models3d.${v.key}_desc`)}</p>
                 </div>

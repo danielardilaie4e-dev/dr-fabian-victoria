@@ -47,7 +47,7 @@ export function ContactSection() {
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-6">
               {t('contact.titulo')}
             </h2>
-            <p className="text-neutral leading-relaxed mb-8">
+            <p className="text-white/70 leading-relaxed mb-8">
               {t('contact.desc')}
             </p>
 
@@ -56,16 +56,16 @@ export function ContactSection() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-neutral hover:text-secondary transition-colors"
+                className="flex items-center gap-3 text-white/70 hover:text-secondary transition-colors"
               >
                 <Phone className="w-5 h-5 text-secondary" />
                 <span>+57 320 911 5240</span>
               </a>
-              <div className="flex items-center gap-3 text-neutral">
+              <div className="flex items-center gap-3 text-white/70">
                 <MapPin className="w-5 h-5 text-secondary shrink-0" />
                 <span>{t('contact.ubicacion')}</span>
               </div>
-              <div className="flex items-center gap-3 text-neutral">
+              <div className="flex items-center gap-3 text-white/70">
                 <Clock className="w-5 h-5 text-secondary shrink-0" />
                 <span>{t('contact.horario')}</span>
               </div>
@@ -82,9 +82,9 @@ export function ContactSection() {
 
             <AnimatedSocialLinks />
 
-            <div className="flex items-start gap-3 mt-8 pt-6 border-t border-card-border/10">
+            <div className="flex items-start gap-3 mt-8 pt-6 border-t border-card-border">
               <Shield className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
-              <p className="text-xs text-neutral leading-relaxed">
+              <p className="text-xs text-white/50 leading-relaxed">
                 {t('contact.disclaimer')}
               </p>
             </div>
@@ -96,12 +96,12 @@ export function ContactSection() {
             viewport={{ once: true }}
           >
             {sent ? (
-                <div className="bg-white/5 rounded-2xl p-8 text-center border border-card-border/10">
+                <div className="bg-white/5 rounded-2xl p-8 text-center border border-card-border">
                 <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mx-auto mb-4">
                   <Phone className="w-8 h-8 text-secondary" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{t('contact.success_titulo')}</h3>
-                <p className="text-neutral text-sm mb-6">
+                <p className="text-white/70 text-sm mb-6">
                   {t('contact.success_desc')}
                 </p>
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
@@ -112,7 +112,7 @@ export function ContactSection() {
                 </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-white/5 rounded-2xl p-8 border border-card-border/10">
+              <form onSubmit={handleSubmit} className="bg-white/5 rounded-2xl p-8 border border-card-border">
                 <h3 className="text-lg font-semibold text-white mb-6">{t('contact.form_titulo')}</h3>
                 <div className="space-y-4">
                   <Input
@@ -120,7 +120,7 @@ export function ContactSection() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     required
-                    className="bg-white/10 border-card-border/20 text-white placeholder:text-neutral"
+                    className="bg-white/10 border-card-border text-white placeholder:text-white/40"
                   />
                   <Input
                     type="tel"
@@ -128,31 +128,31 @@ export function ContactSection() {
                     value={form.whatsapp}
                     onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
                     required
-                    className="bg-white/10 border-card-border/20 text-white placeholder:text-neutral"
+                    className="bg-white/10 border-card-border text-white placeholder:text-white/40"
                   />
                   <Input
                     placeholder={t('contact.form_proc')}
                     value={form.procedure}
                     onChange={(e) => setForm({ ...form, procedure: e.target.value })}
-                    className="bg-white/10 border-card-border/20 text-white placeholder:text-neutral"
+                    className="bg-white/10 border-card-border text-white placeholder:text-white/40"
                   />
                   <Input
                     placeholder={t('contact.form_ciudad')}
                     value={form.city}
                     onChange={(e) => setForm({ ...form, city: e.target.value })}
-                    className="bg-white/10 border-card-border/20 text-white placeholder:text-neutral"
+                    className="bg-white/10 border-card-border text-white placeholder:text-white/40"
                   />
                   <Textarea
                     placeholder={t('contact.form_mensaje')}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={3}
-                    className="bg-white/10 border-card-border/20 text-white placeholder:text-neutral"
+                    className="bg-white/10 border-card-border text-white placeholder:text-white/40"
                   />
                   <Button type="submit" size="lg" className="w-full" disabled={loading}>
                     {loading ? t('contact.form_enviando') : t('contact.form_enviar')}
                   </Button>
-                  <p className="text-xs text-neutral text-center">
+                  <p className="text-xs text-white/50 text-center">
                     {t('contact.form_consent')}
                   </p>
                 </div>

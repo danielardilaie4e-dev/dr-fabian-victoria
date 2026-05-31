@@ -131,7 +131,7 @@ export function FAQSection() {
                         </button>
                       </motion.li>
                     ))}
-                    <li className="border-t border-card-border/50 mx-3 my-1" />
+                    <li className="border-t border-secondary/20 mx-3 my-1" />
                   </ul>
                 )}
 
@@ -156,7 +156,7 @@ export function FAQSection() {
                   </div>
 
                   {!hasMatch && (
-                    <div className="mt-3 pt-3 border-t border-card-border/50 flex items-center gap-2">
+                    <div className="mt-3 pt-3 border-t border-secondary/20 flex items-center gap-2">
                       <a
                         href={whatsappUrl}
                         target="_blank"
@@ -186,7 +186,7 @@ export function FAQSection() {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="border border-card-border/10 rounded-xl overflow-hidden"
+                  className="border border-card-border rounded-xl overflow-hidden"
                 >
                   <button
                     onClick={() => setOpenIndex(openIndex === realIndex ? null : realIndex)}
@@ -208,7 +208,7 @@ export function FAQSection() {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-4 pb-4 text-sm text-neutral leading-relaxed border-t border-card-border/5 pt-3 bg-card">
+                        <div className="px-4 pb-4 text-sm text-neutral leading-relaxed border-t border-card-border pt-3 bg-card">
                           {faq.r}
                         </div>
                       </motion.div>

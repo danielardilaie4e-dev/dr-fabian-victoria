@@ -81,6 +81,19 @@ model KnowledgeDocument {
   updatedAt DateTime @updatedAt
 }
 
+model BeforeAfter {
+  id          String   @id @default(cuid())
+  title       String
+  beforeUrl   String
+  afterUrl    String
+  procedure   String?
+  description String?
+  visible     Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model GalleryImage {
   id          String   @id @default(cuid())
   url         String

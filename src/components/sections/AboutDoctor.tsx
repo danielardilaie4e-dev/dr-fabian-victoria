@@ -22,19 +22,19 @@ export function AboutDoctor() {
             className="relative"
           >
             <div className="relative w-full aspect-[3/4] max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5 rounded-3xl" />
-              <div className="absolute inset-3 bg-card rounded-2xl flex items-center justify-center border border-card-border/5">
-                <div className="text-center p-8">
-                  <Image
-                    src="/logo.jpg"
-                    alt="Dr. Fabián Victoria"
-                    width={200}
-                    height={200}
-                    className="rounded-full mx-auto mb-4 border-2 border-secondary/30"
-                  />
-                  <h3 className="text-white text-xl font-serif">Dr. Fabián Efrén</h3>
-                  <h3 className="text-white text-xl font-serif">Victoria Ardila</h3>
-                  <p className="text-secondary text-sm mt-2">Cirujano Plástico</p>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-3xl" />
+              <div className="absolute inset-3 rounded-2xl overflow-hidden border border-card-border">
+                <Image
+                  src="/fp.jpeg"
+                  alt="Dr. Fabián Victoria"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-5 pt-12">
+                  <p className="text-white font-serif text-lg font-bold leading-tight">Dr. Fabián Efrén</p>
+                  <p className="text-white font-serif text-lg font-bold leading-tight">Victoria Ardila</p>
+                  <p className="text-secondary text-sm mt-1 font-medium">Cirujano Plástico</p>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@ export function AboutDoctor() {
               {t('about.badge')}
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-6">
               {t('about.titulo')}
             </h2>
 
@@ -62,14 +62,14 @@ export function AboutDoctor() {
               <div className="flex items-start gap-3">
                 <Award className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-white">Universidad del Valle</p>
+                  <p className="text-sm font-medium text-foreground">Universidad del Valle</p>
                   <p className="text-sm text-neutral">{t('about.formacion')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Heart className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-white">Miembro SCCP</p>
+                  <p className="text-sm font-medium text-foreground">Miembro SCCP</p>
                   <p className="text-sm text-neutral">{t('about.sociedad')}</p>
                 </div>
               </div>

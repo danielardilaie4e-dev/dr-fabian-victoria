@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
-import { Menu, X, Phone, Sparkles, Globe } from 'lucide-react'
+import { Menu, X, Phone, Sparkles, Globe, Sun, Moon, Box } from 'lucide-react'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
 import { useBg } from '@/lib/bg-context'
 import { useLocale } from '@/lib/locale-context'
+import { useModels3D } from '@/lib/models3d-context'
 
 const NAV_KEYS = [
   { key: 'inicio', href: '#' },
@@ -24,6 +26,8 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { animated, toggle } = useBg()
   const { t, locale, setLocale } = useLocale()
+  const { theme, setTheme } = useTheme()
+  const { visible: models3dVisible, toggle: toggleModels3d } = useModels3D()
   const whatsappUrl = formatWhatsApp('3209115240')
 
   useEffect(() => {
@@ -37,7 +41,7 @@ export function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-card/80 backdrop-blur-xl border-b border-card-border/10 shadow-lg shadow-black/10'
+          ? 'bg-card/80 backdrop-blur-xl border-b border-card-border shadow-lg shadow-black/10'
           : 'bg-transparent'
       }`}
     >
@@ -64,7 +68,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-lg transition-colors"
+                className="px-3 py-2 text-sm text-neutral hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
               >
                 {t(`nav.${link.key}`)}
               </a>
@@ -73,8 +77,17 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+              aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
+              title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            <button
               onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
-              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center gap-1 text-xs font-semibold text-muted hover:text-secondary hover:bg-white/5 transition-colors"
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center gap-1 text-xs font-semibold text-muted hover:text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
               aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
               title={locale === 'es' ? 'English' : 'Español'}
             >
@@ -83,8 +96,17 @@ export function Navbar() {
             </button>
 
             <button
+              onClick={toggleModels3d}
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+              aria-label={models3dVisible ? 'Ocultar modelos 3D' : 'Mostrar modelos 3D'}
+              title={models3dVisible ? 'Modelos 3D: visible' : 'Modelos 3D: oculto'}
+            >
+              <Box className={`w-4 h-4 transition-opacity ${models3dVisible ? 'opacity-100' : 'opacity-40'}`} />
+            </button>
+
+            <button
               onClick={toggle}
-              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-white/5 transition-colors"
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
               aria-label={animated ? t('nav.bg_aria_on') : t('nav.bg_aria_off')}
               title={animated ? t('nav.bg_tooltip_on') : t('nav.bg_tooltip_off')}
             >
@@ -100,7 +122,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-foreground hover:bg-white/5 transition-colors"
+              className="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
               aria-label={locale === 'es' ? 'Menú' : 'Menu'}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -116,7 +138,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-card-border/10 bg-card/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-card-border bg-card/95 backdrop-blur-xl lg:hidden"
           >
             <div className="container mx-auto px-4 py-4 space-y-1">
               {NAV_KEYS.map((link) => (
@@ -124,25 +146,39 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-xl transition-colors"
+                  className="block px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                 >
                   {t(`nav.${link.key}`)}
                 </a>
               ))}
               <div className="flex gap-2 pt-2">
                 <button
+                  onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark'); setMenuOpen(false) }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
+                >
+                  {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {theme === 'dark' ? 'Claro' : 'Oscuro'}
+                </button>
+                <button
                   onClick={() => { setLocale(locale === 'es' ? 'en' : 'es'); setMenuOpen(false) }}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-xl transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                 >
                   <Globe className="w-4 h-4" />
                   {locale === 'es' ? 'EN' : 'ES'}
+                </button>
+                <button
+                  onClick={() => { toggleModels3d(); setMenuOpen(false) }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
+                >
+                  <Box className="w-4 h-4" />
+                  {models3dVisible ? '3D: On' : '3D: Off'}
                 </button>
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMenuOpen(false)}
-                  className="block sm:hidden flex-1"
+                  className="sm:hidden flex-1"
                 >
                   <Button size="sm" className="w-full gap-2">
                     <Phone className="w-4 h-4" />

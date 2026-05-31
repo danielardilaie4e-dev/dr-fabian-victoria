@@ -24,12 +24,12 @@ export function TrustBlock() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card/80 rounded-2xl p-6 border border-card-border/5 hover:border-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#AA8D57]/5 group"
+              className="bg-card/80 rounded-2xl p-6 border border-card-border hover:border-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/5 group"
             >
               <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4 group-hover:bg-secondary/20 transition-colors">
                 <item.icon className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-sm font-semibold text-white mb-2">{item.title}</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
               <p className="text-sm text-neutral leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}

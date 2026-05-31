@@ -17,14 +17,14 @@
 }
 
 :root {
-  --bg: #ffffff;
+  --bg: #F5F0E8;
   --fg: #221E1F;
-  --neutral: #5C5C5C;
-  --neutral-light: #7A7A7A;
-  --muted: #9CA3AF;
-  --card: #f5f5f5;
-  --card-border: rgba(0,0,0,0.08);
-  --surface: #f0f0f0;
+  --neutral: #4A4A4A;
+  --neutral-light: #5C5C5C;
+  --muted: #707070;
+  --card: #EDE8DE;
+  --card-border: rgba(0,0,0,0.2);
+  --surface: #E8E3D9;
 }
 
 .dark {
@@ -32,9 +32,9 @@
   --fg: #ededed;
   --neutral: #C0B8A8;
   --neutral-light: #D4CDBD;
-  --muted: #6B6B6B;
+  --muted: #8B8B8B;
   --card: #1a1a1a;
-  --card-border: rgba(255,255,255,0.08);
+  --card-border: rgba(255,255,255,0.2);
   --surface: #111111;
 }
 
@@ -59,7 +59,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {

@@ -78,7 +78,7 @@ export function AnimatedSocialLinks() {
             }}
             className={`relative flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-200 ${
               hovered && !isHovered
-                ? 'border-card-border/30 opacity-50'
+                ? 'border-card-border opacity-50'
                 : isHovered
                   ? 'border-secondary/50 bg-secondary/10'
                   : 'border-card-border hover:border-secondary/30'

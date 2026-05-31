@@ -171,6 +171,8 @@ const es = {
     facial: 'Perfil Facial',
     facial_desc: 'Anatomía y armonía del perfil facial',
     nota: 'Las simulaciones son orientativas y no representan resultados garantizados. Cada paciente requiere evaluación individual.',
+    ocultar: 'Ocultar modelos 3D',
+    mostrar: 'Mostrar modelos 3D',
   },
   process: {
     badge: 'Proceso',
@@ -265,6 +267,11 @@ const es = {
     r16: 'No, es ambulatoria. Se realiza con anestesia local y sedación. La recuperación es relativamente rápida.',
     q17: '¿Qué es el Mommy Makeover?',
     r17: 'Es un plan integral post-embarazo que combina abdominoplastia, aumento o levantamiento mamario y liposucción según cada caso.',
+  },
+  beforeafter: {
+    badge: 'Antes y Después',
+    titulo: 'Resultados reales de nuestros pacientes',
+    desc: 'Desliza para comparar el antes y después de cada procedimiento.',
   },
   contact: {
     badge: 'Contacto',
@@ -387,6 +394,8 @@ const en: typeof es = {
     facial: 'Facial Profile',
     facial_desc: 'Anatomy and harmony of the facial profile',
     nota: 'Simulations are for reference only and do not represent guaranteed results. Each patient requires individual evaluation.',
+    ocultar: 'Hide 3D models',
+    mostrar: 'Show 3D models',
   },
   process: {
     badge: 'Process',
@@ -481,6 +490,11 @@ const en: typeof es = {
     r16: 'No, it is outpatient. Performed with local anesthesia and sedation. Recovery is relatively quick.',
     q17: 'What is a Mommy Makeover?',
     r17: 'A comprehensive post-pregnancy plan combining tummy tuck, breast augmentation or lift, and liposuction according to each case.',
+  },
+  beforeafter: {
+    badge: 'Before & After',
+    titulo: 'Real results from our patients',
+    desc: 'Slide to compare before and after each procedure.',
   },
   contact: {
     badge: 'Contact',

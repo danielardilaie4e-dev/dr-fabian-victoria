@@ -48,7 +48,7 @@ export function TestimonialsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-6 border border-card-border/10 flex flex-col items-center gap-4 text-center"
+                className="bg-card rounded-2xl p-6 border border-card-border flex flex-col items-center gap-4 text-center"
               >
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, j) => (

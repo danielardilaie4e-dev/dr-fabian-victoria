@@ -15,6 +15,7 @@ import {
   LogOut,
   Menu,
   X,
+  MoveHorizontal,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -27,6 +28,7 @@ const NAV = [
   { label: 'Contactos', href: '/admin/inquiries', icon: Inbox },
   { label: 'Galería', href: '/admin/gallery', icon: Image },
   { label: 'Conocimiento IA', href: '/admin/knowledge', icon: BookOpen },
+  { label: 'Antes y Después', href: '/admin/before-after', icon: MoveHorizontal },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -28,7 +28,7 @@ export function SafetySection() {
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
             {t('safety.titulo')}
           </h2>
-          <p className="text-neutral">
+          <p className="text-white/70">
             {t('safety.desc')}
           </p>
         </motion.div>
@@ -41,13 +41,13 @@ export function SafetySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card/50 rounded-2xl p-6 border border-card-border/5 hover:border-secondary/30 transition-all duration-300"
+              className="bg-card/50 rounded-2xl p-6 border border-card-border hover:border-secondary/30 transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
                 <step.icon className="w-6 h-6 text-secondary" />
               </div>
               <h3 className="text-sm font-semibold text-white mb-2">{step.title}</h3>
-              <p className="text-sm text-neutral leading-relaxed">{step.desc}</p>
+              <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
             </motion.div>
           ))}
         </div>
