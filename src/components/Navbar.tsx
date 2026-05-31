@@ -4,24 +4,26 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
-import { Menu, X, Phone, Sparkles } from 'lucide-react'
+import { Menu, X, Phone, Sparkles, Globe } from 'lucide-react'
 import Image from 'next/image'
 import { useBg } from '@/lib/bg-context'
+import { useLocale } from '@/lib/locale-context'
 
-const NAV_LINKS = [
-  { label: 'Inicio', href: '#' },
-  { label: 'Sobre el doctor', href: '#sobre-el-doctor' },
-  { label: 'Procedimientos', href: '#procedimientos' },
-  { label: 'Seguridad', href: '#seguridad' },
-  { label: 'Testimonios', href: '#testimonios' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contacto', href: '#contacto' },
+const NAV_KEYS = [
+  { key: 'inicio', href: '#' },
+  { key: 'sobre_el_doctor', href: '#sobre-el-doctor' },
+  { key: 'procedimientos', href: '#procedimientos' },
+  { key: 'seguridad', href: '#seguridad' },
+  { key: 'testimonios', href: '#testimonios' },
+  { key: 'faq', href: '#faq' },
+  { key: 'contacto', href: '#contacto' },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { animated, toggle } = useBg()
+  const { t, locale, setLocale } = useLocale()
   const whatsappUrl = formatWhatsApp('3209115240')
 
   useEffect(() => {
@@ -52,29 +54,39 @@ export function Navbar() {
               />
             </div>
             <div className="hidden sm:block">
-              <p className="text-sm font-semibold text-foreground leading-tight">Dr. Fabián Victoria</p>
-              <p className="text-[10px] text-muted leading-tight">Cirujano Plástico en Cali</p>
+              <p className="text-sm font-semibold text-foreground leading-tight">{t('nav.titulo')}</p>
+              <p className="text-[10px] text-muted leading-tight">{t('nav.subtitulo')}</p>
             </div>
           </a>
 
           <div className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
+            {NAV_KEYS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 className="px-3 py-2 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-lg transition-colors"
               >
-                {link.label}
+                {t(`nav.${link.key}`)}
               </a>
             ))}
           </div>
 
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setLocale(locale === 'es' ? 'en' : 'es')}
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center gap-1 text-xs font-semibold text-muted hover:text-secondary hover:bg-white/5 transition-colors"
+              aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+              title={locale === 'es' ? 'English' : 'Español'}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              {locale === 'es' ? 'EN' : 'ES'}
+            </button>
+
+            <button
               onClick={toggle}
               className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-white/5 transition-colors"
-              aria-label={animated ? 'Desactivar fondo animado' : 'Activar fondo animado'}
-              title={animated ? 'Fondo animado: activado' : 'Fondo animado: desactivado'}
+              aria-label={animated ? t('nav.bg_aria_on') : t('nav.bg_aria_off')}
+              title={animated ? t('nav.bg_tooltip_on') : t('nav.bg_tooltip_off')}
             >
               <Sparkles className={`w-4 h-4 transition-opacity ${animated ? 'opacity-100' : 'opacity-40'}`} />
             </button>
@@ -82,14 +94,14 @@ export function Navbar() {
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
               <Button size="sm" className="gap-2">
                 <Phone className="w-4 h-4" />
-                Agendar valoración
+                {t('nav.agendar')}
               </Button>
             </a>
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-foreground hover:bg-white/5 transition-colors"
-              aria-label="Menú"
+              aria-label={locale === 'es' ? 'Menú' : 'Menu'}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -107,28 +119,37 @@ export function Navbar() {
             className="overflow-hidden border-t border-card-border/10 bg-card/95 backdrop-blur-xl lg:hidden"
           >
             <div className="container mx-auto px-4 py-4 space-y-1">
-              {NAV_LINKS.map((link) => (
+              {NAV_KEYS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className="block px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-xl transition-colors"
                 >
-                  {link.label}
+                  {t(`nav.${link.key}`)}
                 </a>
               ))}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
-                className="block sm:hidden"
-              >
-                <Button size="sm" className="w-full gap-2 mt-2">
-                  <Phone className="w-4 h-4" />
-                  Agendar valoración
-                </Button>
-              </a>
+              <div className="flex gap-2 pt-2">
+                <button
+                  onClick={() => { setLocale(locale === 'es' ? 'en' : 'es'); setMenuOpen(false) }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm text-neutral hover:text-foreground hover:bg-white/5 rounded-xl transition-colors"
+                >
+                  <Globe className="w-4 h-4" />
+                  {locale === 'es' ? 'EN' : 'ES'}
+                </button>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="block sm:hidden flex-1"
+                >
+                  <Button size="sm" className="w-full gap-2">
+                    <Phone className="w-4 h-4" />
+                    {t('nav.agendar')}
+                  </Button>
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

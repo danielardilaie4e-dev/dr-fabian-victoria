@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react'
+import { useLocale } from '@/lib/locale-context'
 
 interface Message {
   role: 'user' | 'bot'
@@ -10,9 +11,10 @@ interface Message {
 }
 
 export function AIChat() {
+  const { t } = useLocale()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: '¡Hola! Soy el asistente virtual del Dr. Fabián Victoria. Puedo ayudarte con información sobre procedimientos, valoraciones y resolver tus dudas. ¿En qué puedo ayudarte?' },
+    { role: 'bot', text: t('ai.greeting') },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -77,13 +79,13 @@ export function AIChat() {
       }
 
       const data = await res.json()
-      const responseText = data.response || 'Lo siento, no pude procesar tu consulta. Por favor escríbenos al WhatsApp +57 320 911 5240.'
+      const responseText = data.response || t('ai.error')
       setMessages((prev) => [...prev, { role: 'bot', text: responseText }])
       setStreamingTarget(responseText)
     } catch (err) {
       const errMsg = err instanceof Error && err.name === 'AbortError'
-        ? 'La respuesta está tardando mucho. Por favor intenta de nuevo o escríbenos al WhatsApp +57 320 911 5240.'
-        : 'Ocurrió un error al conectar. Por favor intenta de nuevo o contáctanos por WhatsApp +57 320 911 5240.'
+        ? t('ai.timeout')
+        : t('ai.error')
       setMessages((prev) => [...prev, { role: 'bot', text: errMsg }])
       setStreamingTarget(errMsg)
     }
@@ -121,8 +123,8 @@ export function AIChat() {
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">Dr. Fabián Victoria</p>
-                <p className="text-xs text-white/70">Asistente virtual con IA</p>
+                <p className="text-sm font-semibold text-white">{t('ai.header')}</p>
+                <p className="text-xs text-white/70">{t('ai.subheader')}</p>
               </div>
             </div>
 
@@ -169,7 +171,7 @@ export function AIChat() {
                   </div>
                   <div className="bg-surface rounded-xl rounded-tl-sm px-4 py-2 flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin text-secondary" />
-                    <span className="text-xs text-muted">Escribiendo respuesta...</span>
+                    <span className="text-xs text-muted">{t('ai.writing')}</span>
                   </div>
                 </div>
               )}
@@ -182,7 +184,7 @@ export function AIChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Escribe tu pregunta..."
+                placeholder={t('ai.placeholder')}
                 className="flex-1 bg-surface text-foreground rounded-xl px-3 py-2 text-sm border border-card-border outline-none focus:ring-1 focus:ring-secondary/30 placeholder:text-muted"
                 disabled={loading}
               />

@@ -5,81 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Search, Send, Bot, MessageCircle, ChevronRight, Sparkles } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { formatWhatsApp } from '@/lib/utils'
-
-const FAQS = [
-  {
-    q: '¿La valoración médica es obligatoria antes de una cirugía plástica?',
-    r: 'Sí. La valoración permite revisar tu caso, antecedentes, expectativas, riesgos y opciones. Ningún procedimiento debería definirse sin evaluación individual.',
-  },
-  {
-    q: '¿Puedo saber el precio de un procedimiento por WhatsApp?',
-    r: 'Se puede recibir orientación inicial, pero el valor final depende de la valoración médica, el tipo de procedimiento, complejidad del caso y necesidades específicas.',
-  },
-  {
-    q: '¿Los resultados son iguales para todos los pacientes?',
-    r: 'No. Los resultados varían según anatomía, salud, técnica, recuperación, cuidados y características individuales.',
-  },
-  {
-    q: '¿Cuánto tarda la recuperación de una liposucción o abdominoplastia?',
-    r: 'En liposucción las actividades ligeras suelen retomarse a los pocos días, con ejercicio intenso de 4 a 6 semanas. En abdominoplastia el reposo es más prolongado: ejercicio intenso hacia las 8 semanas. Cada caso tiene indicaciones precisas.',
-  },
-  {
-    q: '¿La liposucción sirve para bajar de peso?',
-    r: 'No debe entenderse como tratamiento para bajar de peso. Es un procedimiento de contorno corporal para casos seleccionados, ideal para personas con peso estable y grasa localizada.',
-  },
-  {
-    q: '¿Qué incluye el seguimiento postoperatorio?',
-    r: 'Incluye controles médicos programados, revisión de incisiones, manejo de prendas de compresión, indicaciones de cuidados y monitoreo de la evolución según el procedimiento realizado.',
-  },
-  {
-    q: '¿Se pueden combinar procedimientos como mamoplastia y abdominoplastia?',
-    r: 'En algunos casos sí, como en el Mommy Makeover. Depende de la valoración médica, tiempo quirúrgico, seguridad del paciente y condiciones individuales. El Dr. Victoria evaluará si eres candidato.',
-  },
-  {
-    q: '¿Cómo se manejan las fotos antes y después?',
-    r: 'Deben manejarse con autorización del paciente, respeto por la privacidad y claridad de que los resultados varían en cada caso.',
-  },
-  {
-    q: '¿Duele la cirugía plástica?',
-    r: 'Los procedimientos se realizan bajo anestesia, por lo que no sentirás dolor durante la cirugía. En el postoperatorio se maneja el dolor con medicamentos según la necesidad de cada paciente.',
-  },
-  {
-    q: '¿A partir de qué edad se puede hacer una cirugía plástica?',
-    r: 'Depende del procedimiento y la valoración médica. En general, se espera que el paciente sea mayor de edad y tenga un desarrollo anatómico completo. Cada caso se evalúa individualmente.',
-  },
-  {
-    q: '¿Las cicatrices son visibles después de la cirugía?',
-    r: 'Toda cirugía deja cicatrices, pero se realizan incisiones en zonas estratégicas para que sean lo menos visibles posible. Con el tiempo y los cuidados adecuados, tienden a atenuarse.',
-  },
-  {
-    q: '¿Cuándo puedo retomar el ejercicio después de una cirugía?',
-    r: 'Depende del tipo de procedimiento. Generalmente se recomienda esperar entre 4 y 8 semanas antes de retomar actividad física intensa. En la valoración se dan indicaciones precisas.',
-  },
-  {
-    q: '¿Qué riesgos tiene la cirugía plástica?',
-    r: 'Como toda cirugía, existen riesgos que se explican detalladamente durante la valoración. La evaluación prequirúrgica permite minimizarlos y determinar si el paciente está en condiciones óptimas.',
-  },
-  {
-    q: '¿Necesito autorización de mi EPS para una cirugía estética?',
-    r: 'La cirugía estética no está cubierta por el sistema de salud. Los costos son asumidos por el paciente. Para cirugías reconstructivas aplican otros criterios.',
-  },
-  {
-    q: '¿El tabaco afecta los resultados de la cirugía?',
-    r: 'Sí. El tabaco interfiere con la cicatrización y aumenta el riesgo de complicaciones. Se recomienda suspender su uso varias semanas antes y después del procedimiento.',
-  },
-  {
-    q: '¿Qué cuidados debo tener antes de una rinoplastia?',
-    r: 'Se realiza una evaluación anatómica y funcional de la nariz, se suspenden anticoagulantes y tabaco, y se planifica el abordaje según tu anatomía. Los resultados estéticos y funcionales se evalúan en conjunto.',
-  },
-  {
-    q: '¿La blefaroplastia requiere hospitalización?',
-    r: 'No, la blefaroplastia es un procedimiento ambulatorio. Se realiza con anestesia local y sedación. La recuperación es relativamente rápida y los resultados rejuvenecen la mirada de forma natural.',
-  },
-  {
-    q: '¿Qué es el Mommy Makeover y para quién es?',
-    r: 'Es un plan integral post-embarazo que combina abdominoplastia, aumento o levantamiento mamario y liposucción según cada caso. Está diseñado para mujeres que desean recuperar su silueta después de la maternidad.',
-  },
-]
+import { useLocale } from '@/lib/locale-context'
 
 function useDebounce<T>(value: T, delay = 300): T {
   const [debounced, setDebounced] = useState(value)
@@ -91,11 +17,17 @@ function useDebounce<T>(value: T, delay = 300): T {
 }
 
 export function FAQSection() {
+  const { t } = useLocale()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [search, setSearch] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const debouncedSearch = useDebounce(search, 200)
   const listRef = useRef<HTMLDivElement>(null)
+
+  const FAQS = Array.from({ length: 17 }, (_, i) => ({
+    q: t(`faq.q${i + 1}`),
+    r: t(`faq.r${i + 1}`),
+  }))
 
   const showAll = debouncedSearch.length === 0
   const filtered = showAll ? [] : FAQS.filter(
@@ -121,12 +53,12 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Preguntas Frecuentes</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('faq.badge')}</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4">
-            Resuelve tus dudas antes de decidir
+            {t('faq.titulo')}
           </h2>
           <p className="text-neutral">
-            Antes de decidir, es normal tener preguntas. Aquí encontrarás respuestas claras.
+            {t('faq.desc')}
           </p>
         </motion.div>
 
@@ -134,7 +66,7 @@ export function FAQSection() {
           <div className="relative">
             <Input
               type="text"
-              placeholder="Buscar pregunta..."
+              placeholder={t('faq.placeholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -208,17 +140,17 @@ export function FAQSection() {
                     <Sparkles className="w-5 h-5 text-secondary shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-foreground">
-                        {hasMatch ? '¿No es lo que buscas?' : 'No encontramos esa pregunta'}
+                        {hasMatch ? t('faq.sugerencia') : t('faq.no_match')}
                       </p>
                       <p className="text-xs text-muted mt-0.5">
-                        Pregúntale a nuestro asistente con IA
+                        {t('faq.ia_text')}
                       </p>
                     </div>
                     <button
                       onMouseDown={openChat}
                       className="flex items-center gap-1 text-secondary text-sm font-medium hover:underline shrink-0"
                     >
-                      Preguntar
+                      {t('faq.preguntar')}
                       <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -232,7 +164,7 @@ export function FAQSection() {
                         className="flex items-center gap-1 text-xs text-muted hover:text-secondary transition-colors"
                       >
                         <Bot className="w-3 h-3" />
-                        Habla con el doctor por WhatsApp
+                        {t('faq.wpp_text')}
                       </a>
                     </div>
                   )}

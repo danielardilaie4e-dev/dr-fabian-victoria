@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Send, Stethoscope, Activity, Eye, User, Heart, Baby, MessageCircle, ChevronRight } from 'lucide-react'
 import { formatWhatsApp } from '@/lib/utils'
+import { useLocale } from '@/lib/locale-context'
 
 const CATEGORY_ICONS: Record<string, typeof Stethoscope> = {
   'consulta médica': Stethoscope,
@@ -53,6 +54,7 @@ type SearchItem = {
 }
 
 export function MedicalSearch() {
+  const { t, locale } = useLocale()
   const [query, setQuery] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -131,12 +133,12 @@ export function MedicalSearch() {
           viewport={{ once: true }}
           className="text-center mb-8"
         >
-          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Buscador médico</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('search.sugerencia')}</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4">
-            ¿Qué procedimiento te interesa?
+            {t('search.titulo')}
           </h2>
           <p className="text-neutral">
-            Encuentra información sobre procedimientos, resuelve dudas o agenda tu valoración.
+            {t('search.desc')}
           </p>
         </motion.div>
 
@@ -144,7 +146,7 @@ export function MedicalSearch() {
           <div className="relative">
             <Input
               type="text"
-              placeholder="Busca por procedimiento, palabra clave..."
+              placeholder={t('search.placeholder')}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -190,14 +192,14 @@ export function MedicalSearch() {
                 <motion.ul className="py-2 max-h-96 overflow-y-auto">
                   {results.length === 0 ? (
                     <li className="px-4 py-8 text-center">
-                      <p className="text-muted text-sm">No se encontraron resultados</p>
+                      <p className="text-muted text-sm">{t('search.no_result')} &quot;{query}&quot;</p>
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-secondary text-sm mt-2 hover:underline"
                       >
-                        Consulta directamente con el doctor
+                        {t('search.intenta')}
                         <ChevronRight className="w-3 h-3" />
                       </a>
                     </li>
@@ -230,7 +232,7 @@ export function MedicalSearch() {
                             <span className="block text-xs text-muted mt-0.5 line-clamp-1">{item.description}</span>
                           </div>
                           <span className="text-[10px] uppercase tracking-wider text-muted shrink-0 mt-0.5">
-                            {item.type === 'contacto' ? 'Contacto' : item.type}
+                            {item.type === 'contacto' ? t('search.sugerencia') : t('search.procedimiento')}
                           </span>
                         </button>
                       </motion.li>
@@ -240,8 +242,8 @@ export function MedicalSearch() {
 
                 <div className="px-4 py-2 border-t border-card-border bg-surface">
                   <div className="flex items-center justify-between text-xs text-muted">
-                    <span>Usa las flechas ↑ ↓ para navegar, Enter para seleccionar</span>
-                    <span>ESC para cerrar</span>
+                    <span>{locale === 'es' ? 'Usa las flechas ↑ ↓ para navegar, Enter para seleccionar' : 'Use ↑ ↓ to navigate, Enter to select'}</span>
+                    <span>ESC</span>
                   </div>
                 </div>
               </motion.div>

@@ -3,41 +3,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, Search, ClipboardList, Stethoscope, Heart } from 'lucide-react'
+import { useLocale } from '@/lib/locale-context'
 
-const STEPS = [
-  {
-    icon: MessageCircle,
-    label: 'Contacto',
-    desc: 'Agenda tu valoración por WhatsApp o formulario web. El primer paso es una conversación sin compromiso.',
-    color: '#AA8D57',
-  },
-  {
-    icon: Search,
-    label: 'Valoración',
-    desc: 'Evaluación médica personalizada: revisamos tu caso, antecedentes, expectativas y definimos si hay indicación médica.',
-    color: '#AA8D57',
-  },
-  {
-    icon: ClipboardList,
-    label: 'Planeación',
-    desc: 'Diseñamos el plan quirúrgico a tu medida, explicamos riesgos, beneficios, cuidados y resolvemos todas tus dudas.',
-    color: '#AA8D57',
-  },
-  {
-    icon: Stethoscope,
-    label: 'Procedimiento',
-    desc: 'Cirugía en entorno clínico seguro, con equipo especializado y siguiendo los más altos estándares médicos.',
-    color: '#AA8D57',
-  },
-  {
-    icon: Heart,
-    label: 'Recuperación',
-    desc: 'Seguimiento postoperatorio cercano, controles programados y acompañamiento permanente para tu tranquilidad.',
-    color: '#AA8D57',
-  },
-]
+const STEP_ICONS = [MessageCircle, Search, ClipboardList, Stethoscope, Heart]
 
 export function ProcessSection() {
+  const { t } = useLocale()
+
+  const steps = Array.from({ length: 5 }, (_, i) => ({
+    icon: STEP_ICONS[i],
+    label: t(`process.paso${i + 1}_titulo`),
+    desc: t(`process.paso${i + 1}_desc`),
+  }))
+
   const [activeStep, setActiveStep] = useState(0)
 
   return (
@@ -49,19 +27,18 @@ export function ProcessSection() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Tu Proceso</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('process.badge')}</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
-            Tu seguridad es parte central del proceso
+            {t('process.titulo')}
           </h2>
           <p className="text-[#D4CDBD]">
-            La valoración, la planeación quirúrgica y el seguimiento permiten tomar decisiones informadas,
-            resolver dudas y definir si un procedimiento es adecuado para tu caso.
+            {t('process.desc')}
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           <div className="relative flex justify-between items-start mb-12">
-            {STEPS.map((step, i) => {
+            {steps.map((step, i) => {
               const Icon = step.icon
               const isActive = i <= activeStep
               const isCurrent = i === activeStep
@@ -100,7 +77,7 @@ export function ProcessSection() {
               <motion.div
                 className="h-full bg-secondary"
                 initial={{ width: '0%' }}
-                animate={{ width: `${(activeStep / (STEPS.length - 1)) * 100}%` }}
+                animate={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
                 transition={{ duration: 0.5, ease: 'easeInOut' }}
               />
             </div>
@@ -117,17 +94,17 @@ export function ProcessSection() {
             >
               <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
                 {(() => {
-                  const Icon = STEPS[activeStep].icon
+                  const Icon = steps[activeStep].icon
                   return <Icon className="w-7 h-7 text-secondary" />
                 })()}
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">{STEPS[activeStep].label}</h3>
-              <p className="text-[#D4CDBD] leading-relaxed">{STEPS[activeStep].desc}</p>
+              <h3 className="text-xl font-semibold text-white mb-3">{steps[activeStep].label}</h3>
+              <p className="text-[#D4CDBD] leading-relaxed">{steps[activeStep].desc}</p>
             </motion.div>
           </AnimatePresence>
 
           <div className="flex justify-center gap-2 mt-6">
-            {STEPS.map((_, i) => (
+            {steps.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}

@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button'
 import { GraduationCap, Award, Heart } from 'lucide-react'
 import { formatWhatsApp } from '@/lib/utils'
 import Image from 'next/image'
+import { useLocale } from '@/lib/locale-context'
 
 export function AboutDoctor() {
+  const { t } = useLocale()
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
@@ -25,7 +27,7 @@ export function AboutDoctor() {
                 <div className="text-center p-8">
                   <Image
                     src="/logo.jpg"
-                    alt="Dr. Fabian Victoria"
+                    alt="Dr. Fabián Victoria"
                     width={200}
                     height={200}
                     className="rounded-full mx-auto mb-4 border-2 border-secondary/30"
@@ -45,18 +47,15 @@ export function AboutDoctor() {
           >
             <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-sm font-medium px-4 py-1.5 rounded-full mb-4">
               <GraduationCap className="w-4 h-4" />
-              Sobre el doctor
+              {t('about.badge')}
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-6">
-              Especialista en cirugía plástica, estética y reconstructiva
+              {t('about.titulo')}
             </h2>
 
             <p className="text-neutral leading-relaxed mb-6">
-              El Dr. Fabián Efrén Victoria Ardila es cirujano plástico en Cali, enfocado en procedimientos
-              estéticos y reconstructivos con una atención basada en valoración individual, seguridad del
-              paciente y seguimiento continuo. Su trabajo busca armonizar expectativas, anatomía y criterio
-              médico para orientar cada caso de forma responsable.
+              {t('about.desc')}
             </p>
 
             <div className="space-y-4 mb-8">
@@ -64,20 +63,20 @@ export function AboutDoctor() {
                 <Award className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-white">Universidad del Valle</p>
-                  <p className="text-sm text-neutral">Formación en cirugía plástica</p>
+                  <p className="text-sm text-neutral">{t('about.formacion')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Heart className="w-5 h-5 text-secondary mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-white">Miembro SCCP</p>
-                  <p className="text-sm text-neutral">Sociedad Colombiana de Cirugía Plástica</p>
+                  <p className="text-sm text-neutral">{t('about.sociedad')}</p>
                 </div>
               </div>
             </div>
 
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <Button size="lg">Habla con el consultorio</Button>
+              <Button size="lg">{t('about.cta')}</Button>
             </a>
           </motion.div>
         </div>

@@ -9,6 +9,7 @@ import { SafetySection } from '@/components/sections/SafetySection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { ContactSection } from '@/components/sections/ContactSection'
+import { FooterSection } from '@/components/sections/FooterSection'
 
 export default function Home() {
   return (
@@ -24,15 +25,7 @@ export default function Home() {
       <TestimonialsSection />
       <FAQSection />
       <ContactSection />
-
-      <footer className="bg-background py-8 border-t border-card-border">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-neutral">
-            &copy; {new Date().getFullYear()} Dr. Fabián Victoria — Cirujano Plástico en Cali.
-            Todos los derechos reservados.
-          </p>
-        </div>
-      </footer>
+      <FooterSection />
     </main>
   )
 }

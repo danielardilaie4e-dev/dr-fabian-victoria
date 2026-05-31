@@ -1,37 +1,23 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, MapPin, HeartHandshake, Stethoscope, Users, ClipboardCheck } from 'lucide-react'
-
-const TRUST_ITEMS = [
-  {
-    icon: Users,
-    title: '+200 pacientes valorados',
-    desc: 'Atención personalizada en Cali con evaluación médica individual y seguimiento continuo.',
-  },
-  {
-    icon: Stethoscope,
-    title: 'Cirugía Plástica, Estética y Reconstructiva',
-    desc: 'Especialidad completa con enfoque en seguridad, resultados naturales y criterio médico responsable.',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Valoración Médica Obligatoria',
-    desc: 'Cada caso se evalúa individualmente antes de definir cualquier procedimiento. No se opera sin evaluación previa.',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Acompañamiento Continuo',
-    desc: 'Planeación responsable, procedimiento en entorno clínico y seguimiento postoperatorio personalizado.',
-  },
-]
+import { HeartHandshake, Stethoscope, Users, ClipboardCheck } from 'lucide-react'
+import { useLocale } from '@/lib/locale-context'
 
 export function TrustBlock() {
+  const { t } = useLocale()
+  const items = [
+    { icon: Users, title: t('trust.pacientes_titulo'), desc: t('trust.pacientes_desc') },
+    { icon: Stethoscope, title: t('trust.especialidad_titulo'), desc: t('trust.especialidad_desc') },
+    { icon: ClipboardCheck, title: t('trust.valoracion_titulo'), desc: t('trust.valoracion_desc') },
+    { icon: HeartHandshake, title: t('trust.acompañamiento_titulo'), desc: t('trust.acompañamiento_desc') },
+  ]
+
   return (
     <section className="py-20 bg-surface/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TRUST_ITEMS.map((item, i) => (
+          {items.map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 20 }}

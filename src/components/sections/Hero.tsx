@@ -6,8 +6,10 @@ import { formatWhatsApp } from '@/lib/utils'
 import { SpecialText } from '@/components/ui/SpecialText'
 import { Phone, ArrowDown, GraduationCap, Award, Shield, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import { useLocale } from '@/lib/locale-context'
 
 export function Hero() {
+  const { t } = useLocale()
   const whatsappUrl = formatWhatsApp('3209115240')
 
   return (
@@ -25,44 +27,43 @@ export function Hero() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral/80 mb-6">
               <span className="flex items-center gap-1">
                 <GraduationCap className="w-3.5 h-3.5 text-secondary" />
-                Universidad del Valle
+                {t('hero.univalle')}
               </span>
               <span className="w-1 h-1 rounded-full bg-neutral/30" />
               <span className="flex items-center gap-1">
                 <Award className="w-3.5 h-3.5 text-secondary" />
-                Miembro SCCP
+                {t('hero.sccp')}
               </span>
               <span className="w-1 h-1 rounded-full bg-neutral/30" />
               <span className="flex items-center gap-1">
                 <Shield className="w-3.5 h-3.5 text-secondary" />
-                Cirugía Estética y Reconstructiva
+                {t('hero.estetica')}
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
-              Cirugía plástica con{' '}
-              <span className="text-secondary">precisión médica</span>,
+              {t('hero.headline_1')}{' '}
+              <span className="text-secondary">{t('hero.headline_2')}</span>,
               <SpecialText speed={30} delay={0.5}>
-                estética natural
+                {t('hero.headline_3')}
               </SpecialText>{' '}
-              y acompañamiento personalizado
+              {t('hero.headline_4')}
             </h1>
 
             <p className="text-lg text-neutral leading-relaxed mb-8">
-              El Dr. Fabián Victoria brinda atención en cirugía plástica, estética y reconstructiva en Cali,
-              con valoración detallada, planeación responsable y seguimiento postoperatorio.
+              {t('hero.desc')}
             </p>
 
             <div className="flex flex-wrap gap-4">
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gap-2">
                   <Phone className="w-5 h-5" />
-                  Agendar valoración
+                  {t('hero.cta_wpp')}
                 </Button>
               </a>
               <a href="#procedimientos">
                 <Button variant="outline" size="lg">
-                  Ver procedimientos
+                  {t('hero.cta_proc')}
                 </Button>
               </a>
               <a
@@ -72,7 +73,7 @@ export function Hero() {
               >
                 <Button variant="outline" size="lg" className="gap-2">
                   <MapPin className="w-5 h-5" />
-                  Ubicación
+                  {t('hero.cta_ubi')}
                 </Button>
               </a>
             </div>
@@ -89,7 +90,7 @@ export function Hero() {
                 ))}
               </div>
               <p className="text-sm text-neutral">
-                <span className="text-white font-semibold">+200 pacientes</span> han confiado en su valoración
+                <span className="text-white font-semibold">{t('hero.mas_200')}</span> {t('hero.pacientes')}
               </p>
             </div>
           </motion.div>

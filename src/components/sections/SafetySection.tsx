@@ -2,41 +2,19 @@
 
 import { motion } from 'framer-motion'
 import { ClipboardCheck, FileText, Stethoscope, Syringe, HeartPulse, CalendarCheck } from 'lucide-react'
+import { useLocale } from '@/lib/locale-context'
 
-const SAFETY_STEPS = [
-  {
-    icon: ClipboardCheck,
-    title: 'Valoración médica obligatoria',
-    desc: 'Revisión de historia clínica, antecedentes, expectativas y determinación de indicación médica. Ningún procedimiento se realiza sin esta evaluación.',
-  },
-  {
-    icon: FileText,
-    title: 'Historia clínica y exámenes',
-    desc: 'Evaluación completa de condiciones de salud, exámenes prequirúrgicos y verificación de requisitos para garantizar que el paciente esté en condiciones óptimas.',
-  },
-  {
-    icon: Stethoscope,
-    title: 'Planeación quirúrgica individual',
-    desc: 'Definición de técnica, abordaje, tiempos y cuidados según la anatomía, salud y expectativas realistas de cada paciente.',
-  },
-  {
-    icon: Syringe,
-    title: 'Procedimiento en entorno clínico',
-    desc: 'Cirugía realizada bajo anestesia en condiciones controladas, con protocolos de seguridad y personal calificado.',
-  },
-  {
-    icon: HeartPulse,
-    title: 'Seguimiento postoperatorio',
-    desc: 'Controles médicos programados, manejo de dolor, curación de incisiones y monitoreo de la evolución del paciente.',
-  },
-  {
-    icon: CalendarCheck,
-    title: 'Indicaciones claras de recuperación',
-    desc: 'Recomendaciones detalladas sobre cuidados, alimentación, actividad física, suspensión de tabaco y señales de alerta.',
-  },
-]
+const ICONS = [ClipboardCheck, FileText, Stethoscope, Syringe, HeartPulse, CalendarCheck]
 
 export function SafetySection() {
+  const { t } = useLocale()
+
+  const steps = Array.from({ length: 6 }, (_, i) => ({
+    icon: ICONS[i],
+    title: t(`safety.paso${i + 1}_titulo`),
+    desc: t(`safety.paso${i + 1}_desc`),
+  }))
+
   return (
     <section id="seguridad" className="py-24 bg-primary">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,17 +24,17 @@ export function SafetySection() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">Seguridad Quirúrgica</p>
+          <p className="text-secondary font-medium text-sm mb-4 uppercase tracking-wider">{t('safety.badge')}</p>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-4">
-            Seguridad antes, durante y después de tu cirugía
+            {t('safety.titulo')}
           </h2>
           <p className="text-neutral">
-            Cada etapa está diseñada para minimizar riesgos, maximizar resultados y garantizar tu tranquilidad.
+            {t('safety.desc')}
           </p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SAFETY_STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <motion.div
               key={step.title}
               initial={{ opacity: 0, y: 20 }}
@@ -81,8 +59,7 @@ export function SafetySection() {
           className="mt-12 text-center"
         >
           <p className="text-xs text-neutral/60 max-w-xl mx-auto">
-            La seguridad del paciente es la prioridad en cada paso. Toda la información es orientativa y no reemplaza
-            la valoración médica presencial. Los resultados varían según anatomía, salud, técnica y cuidados.
+            {t('safety.disclaimer')}
           </p>
         </motion.div>
       </div>
