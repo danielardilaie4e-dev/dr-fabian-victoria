@@ -2,4 +2,4 @@ export { DottedSurface } from './DottedSurface'
 export { BodyContourViewer } from './BodyContourViewer'
 export { BreastHarmonyViewer } from './BreastHarmonyViewer'
 export { FacialProfileViewer } from './FacialProfileViewer'
-export { ProcessTimeline3D } from './ProcessTimeline3D'
+

@@ -128,28 +128,32 @@ function keywordFallback(message: string, knowledgeContext: string): string {
       'Los precios varían según cada caso. Te recomiendo agendar una valoración para recibir información detallada sobre costos y formas de pago.',
     ],
     lipo: [
-      'La liposucción y lipoescultura remodelan el contorno corporal eliminando grasa localizada. No son tratamientos para bajar de peso. Los resultados dependen de la anatomía y evaluación individual.',
-      'La lipoescultura redefine la silueta corporal. Es ideal para personas con peso estable que tienen depósitos de grasa resistentes al ejercicio.',
+      '¡Sí! En el consultorio del Dr. Fabian Victoria realizamos liposucción y lipoescultura para remodelar el contorno corporal eliminando grasa localizada. No son tratamientos para bajar de peso. Los resultados dependen de la anatomía y evaluación individual.',
+      'Sí, realizamos lipoescultura para redefinir la silueta corporal. Es ideal para personas con peso estable que tienen depósitos de grasa resistentes al ejercicio. ¿Te gustaría agendar una valoración?',
     ],
     mama: [
-      'La mamoplastia incluye aumento con implantes, reducción mamaria, levantamiento (mastopexia) y remodelación. Cada caso se evalúa individualmente para determinar la técnica más adecuada.',
-      'La cirugía de mamas puede transformar tu silueta y autoestima. El Dr. Fabian Victoria evalúa tu caso para recomendar la mejor opción.',
+      '¡Sí! La mamoplastia es uno de los procedimientos que realizamos. Incluye aumento con implantes, reducción mamaria, levantamiento (mastopexia) y remodelación. Cada caso se evalúa individualmente para determinar la técnica más adecuada.',
+      'Sí, en nuestro consultorio realizamos cirugía de mamas. Podemos transformar tu silueta y autoestima. El Dr. Fabian Victoria evalúa tu caso para recomendar la mejor opción.',
     ],
     recuperacion: [
       'El tiempo de recuperación varía según el procedimiento. Generalmente: primeros días de reposo, actividades ligeras a las 2 semanas, ejercicio intenso de 4 a 8 semanas. En la valoración se explican los tiempos para tu caso específico.',
       'La recuperación incluye cuidados de incisiones, medicación, prendas de compresión y controles postoperatorios. Cada paciente tiene un plan personalizado.',
     ],
     abdominoplastia: [
-      'La abdominoplastia corrige el exceso de piel y flacidez abdominal, común después del embarazo o pérdida de peso significativa. Puede incluir reparación de diástasis de los rectos abdominales.',
-      'La cirugía de abdomen remodela y tensa la pared abdominal. Los mejores resultados se obtienen en personas con peso estable y buena salud.',
+      '¡Sí! Realizamos abdominoplastia para corregir el exceso de piel y flacidez abdominal, común después del embarazo o pérdida de peso significativa. Puede incluir reparación de diástasis de los rectos abdominales.',
+      'Sí, la cirugía de abdomen remodela y tensa la pared abdominal. Los mejores resultados se obtienen en personas con peso estable y buena salud. ¿Quieres agendar una valoración?',
     ],
     nariz: [
-      'La rinoplastia armoniza la nariz con el rostro, mejorando estética y función respiratoria. Se evalúa la anatomía nasal interna y externa para determinar el enfoque adecuado.',
-      'La cirugía de nariz puede mejorar la respiración y la apariencia facial simultáneamente.',
+      '¡Sí! Realizamos rinoplastia para armonizar la nariz con el rostro, mejorando tanto la estética como la función respiratoria. Se evalúa la anatomía nasal interna y externa para determinar el enfoque adecuado.',
+      'Sí, la cirugía de nariz es uno de nuestros procedimientos. Puede mejorar la respiración y la apariencia facial simultáneamente. El Dr. Victoria te evaluará personalmente.',
     ],
     parpados: [
-      'La blefaroplastia rejuvenece la mirada eliminando exceso de piel y bolsas en los párpados. Es ambulatoria con recuperación relativamente rápida.',
-      'Si sientes que tu mirada se ve cansada, la blefaroplastia puede ser una opción. Los resultados son naturales y duraderos.',
+      '¡Sí! Realizamos blefaroplastia para rejuvenecer la mirada eliminando exceso de piel y bolsas en los párpados. Es ambulatoria con recuperación relativamente rápida.',
+      'Sí, la blefaroplastia la realizamos en nuestro consultorio. Si sientes que tu mirada se ve cansada, puede ser una opción para ti. Los resultados son naturales y duraderos.',
+    ],
+    labioplastia: [
+      'Sí, realizamos labioplastia en nuestro consultorio con enfoque en comodidad y privacidad. Es una cirugía íntima femenina que se realiza con total discreción.',
+      'Sí, la cirugía íntima femenina (labioplastia) es uno de los procedimientos que ofrecemos. El Dr. Victoria garantiza un ambiente de respeto y profesionalismo.',
     ],
     cicatriz: [
       'Toda cirugía deja cicatrices, pero se realizan incisiones en zonas estratégicas para que sean lo menos visibles. Con protección solar y cuidados, se atenúan significativamente.',
@@ -180,22 +184,22 @@ function keywordFallback(message: string, knowledgeContext: string): string {
       'Si tu procedimiento tiene componente reconstructivo, puede haber opciones de cobertura. El Dr. Victoria te orientará.',
     ],
     mommy: [
-      'El Mommy Makeover combina procedimientos post-embarazo: abdominoplastia, aumento/levantamiento mamario, liposucción. Cada plan es único.',
-      'El embarazo transforma el cuerpo. El Mommy Makeover está diseñado para recuperar tu silueta y confianza.',
+      '¡Sí! Realizamos el Mommy Makeover, un plan integral post-embarazo que combina procedimientos corporales y mamarios como abdominoplastia, aumento o levantamiento mamario y liposucción. Cada plan es único y personalizado.',
+      'Sí, el Mommy Makeover está diseñado para recuperar tu silueta y confianza después del embarazo. El Dr. Victoria crea un plan a tu medida.',
     ],
     consumir: [
       'Antes de una cirugía plástica, el Dr. Fabian Victoria indica suspender: tabaco (mínimo 4 semanas antes), alcohol (al menos 48 horas antes), anticoagulantes como aspirina, ibuprofeno y algunos suplementos herbales. La noche anterior solo debes consumir líquidos claros hasta 6 horas antes. Todos estos requisitos se explican detalladamente en la valoración prequirúrgica.',
       'La preparación preoperatoria incluye: ayuno de 6-8 horas, suspender tabaco y alcohol, evitar medicamentos anticoagulantes. Recibirás indicaciones precisas durante tu valoración.',
     ],
     que_puedo: [
-      'Puedo ayudarte con información sobre cirugía plástica, estética y reconstructiva. Pregúntame sobre procedimientos como liposucción, mamoplastia, abdominoplastia, rinoplastia, blefaroplastia, cuidados pre y postoperatorios, valoraciones médicas y más. Si tengo la información en mi base de conocimiento, te responderé con detalles. De lo contrario, te recomendaré agendar una valoración.',
+      'Puedo ayudarte con información sobre cirugía plástica, estética y reconstructiva. Pregúntame sobre procedimientos como liposucción, mamoplastia, abdominoplastia, rinoplastia, blefaroplastia, labioplastia, mommy makeover, cuidados pre y postoperatorios, valoraciones médicas y más. Si tengo la información en mi base de conocimiento, te responderé con detalles. De lo contrario, te recomendaré agendar una valoración.',
       '¡Claro! Estoy aquí para resolver tus dudas sobre cirugía plástica. Puedo hablarte de procedimientos, recuperación, cuidados, requisitos y más. ¿Qué te gustaría saber?',
     ],
   }
 
   const categories = [
     { patterns: ['consumir', 'dejar de', 'suspender', 'ayuno', 'comer', 'beber', 'alcohol', 'medicamento', 'pastilla', 'preoperatorio', 'pre-cirugía', 'antes de la cirugía', 'preparación', 'prepararme'], key: 'consumir' },
-    { patterns: ['puedes', 'puedes responder', 'qué puedes', 'que haces', 'ayuda', 'información', 'todo'], key: 'que_puedo' },
+    { patterns: ['puedes', 'puedes responder', 'qué puedes', 'que haces', 'pero haces', 'que hace', 'hacen', 'ayuda', 'información', 'todo', 'quiero saber'], key: 'que_puedo' },
     { patterns: ['valoración', 'consulta', 'cita', 'agendar', 'primer paso', 'evaluación', 'diagnóstico', 'presencial'], key: 'valoracion' },
     { patterns: ['precio', 'costo', 'valor', 'cuánto', 'presupuesto', 'tarifa', 'pago', 'financiación', 'cuota', 'pagas', 'costos'], key: 'precio' },
     { patterns: ['lipo', 'grasa', 'contorno', 'silueta', 'cintura', 'cartucheras', 'abdomen grasa'], key: 'lipo' },
@@ -204,6 +208,7 @@ function keywordFallback(message: string, knowledgeContext: string): string {
     { patterns: ['abdominoplastia', 'abdomen', 'barriga', 'piel', 'diástasis', 'rectos', 'flacidez abdominal', 'vientre'], key: 'abdominoplastia' },
     { patterns: ['rinoplastia', 'nariz', 'nasal', 'respiración', 'tabique'], key: 'nariz' },
     { patterns: ['blefaroplastia', 'párpado', 'mirada', 'ojos', 'bolsas', 'ojeras', 'parpado caído'], key: 'parpados' },
+    { patterns: ['labioplastia', 'labio', 'íntima', 'genital', 'vaginal'], key: 'labioplastia' },
     { patterns: ['cicatriz', 'marca', 'incisión', 'visible', 'corte', 'herida'], key: 'cicatriz' },
     { patterns: ['edad', 'años', 'menor', 'joven', 'mayor', 'aplico'], key: 'edad' },
     { patterns: ['ejercicio', 'gimnasio', 'deporte', 'peso', 'entrenar', 'entrenamiento', 'actividad física', 'cardio'], key: 'ejercicio' },
@@ -226,7 +231,7 @@ function keywordFallback(message: string, knowledgeContext: string): string {
     return `Según la documentación proporcionada por el Dr. Fabian Victoria:\n\n${knowledgeContext.split('\n').slice(1, 8).join('\n')}\n\n¿Te gustaría saber algo más en específico? También puedes agendar una valoración al WhatsApp +57 320 911 5240.`
   }
 
-  return '¡Hola! Soy el asistente virtual del Dr. Fabian Victoria. Puedo ayudarte con información sobre cirugía plástica, estética y reconstructiva. Pregúntame sobre procedimientos específicos, cuidados preoperatorios, recuperación, requisitos y más. ¿En qué puedo ayudarte hoy?'
+  return 'No tengo información específica sobre esa consulta. Los procedimientos que realizamos incluyen:\n\n• Liposucción y lipoescultura\n• Mamoplastia (aumento, reducción, levantamiento)\n• Abdominoplastia\n• Rinoplastia\n• Blefaroplastia\n• Labioplastia\n• Mommy Makeover\n• Cirugía reconstructiva\n\n¿Te gustaría saber más sobre alguno de estos? También puedes agendar una valoración personalizada al WhatsApp +57 320 911 5240.'
 }
 
 export async function POST(req: NextRequest) {
