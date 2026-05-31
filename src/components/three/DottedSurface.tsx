@@ -4,11 +4,13 @@ import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useBg } from '@/lib/bg-context'
 
 type DottedSurfaceProps = Omit<React.ComponentProps<'div'>, 'ref'>
 
 export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   const { theme } = useTheme()
+  const { animated } = useBg()
 
   const containerRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<{
@@ -157,6 +159,25 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       }
     }
   }, [theme])
+
+  if (!animated) {
+    return (
+      <div
+        className={cn(
+          'pointer-events-none fixed inset-0 z-0',
+          'bg-gradient-to-b from-[#0c0c0c] via-[#111111] to-[#0a0a0a]',
+          'dark:from-[#0c0c0c] dark:via-[#111111] dark:to-[#0a0a0a]',
+          'bg-[length:60px_60px]',
+          className,
+        )}
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 1px 1px, rgba(170, 141, 87, 0.06) 1px, transparent 0)',
+        }}
+        {...props}
+      />
+    )
+  }
 
   return (
     <div

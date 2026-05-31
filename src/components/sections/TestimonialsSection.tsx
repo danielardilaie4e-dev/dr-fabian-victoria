@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
-import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel'
+import { Star } from 'lucide-react'
 
 const TESTIMONIALS = [
   {
@@ -47,14 +47,41 @@ export function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="pb-8"
-        >
-          <TestimonialCarousel testimonials={TESTIMONIALS} />
-        </motion.div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {TESTIMONIALS.map((t, i) => {
+            const initials = t.name
+              .split(' ')
+              .map((n) => n[0])
+              .join('')
+              .slice(0, 2)
+            return (
+              <motion.div
+                key={t.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-card rounded-2xl p-6 border border-card-border/10 flex flex-col items-center gap-4 text-center"
+              >
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-secondary fill-secondary" />
+                  ))}
+                </div>
+                <div className="w-14 h-14 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-semibold text-lg">
+                  {initials}
+                </div>
+                <p className="text-sm text-neutral leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                <div>
+                  <p className="font-semibold text-sm text-foreground">{t.name}</p>
+                  {t.procedure && (
+                    <p className="text-xs text-secondary mt-0.5">{t.procedure}</p>
+                  )}
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}

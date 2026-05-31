@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Phone, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { useBg } from '@/lib/bg-context'
 
 const NAV_LINKS = [
   { label: 'Inicio', href: '#' },
@@ -19,6 +21,7 @@ const NAV_LINKS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { animated, toggle } = useBg()
   const whatsappUrl = formatWhatsApp('3209115240')
 
   useEffect(() => {
@@ -39,8 +42,14 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <a href="#" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-lg bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
-              <span className="text-secondary text-sm font-bold">FV</span>
+            <div className="w-9 h-9 rounded-lg overflow-hidden ring-1 ring-secondary/30">
+              <Image
+                src="/logo.jpg"
+                alt="Dr. Fabián Victoria"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="hidden sm:block">
               <p className="text-sm font-semibold text-foreground leading-tight">Dr. Fabián Victoria</p>
@@ -60,7 +69,16 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggle}
+              className="hidden sm:flex w-9 h-9 rounded-xl items-center justify-center text-muted hover:text-secondary hover:bg-white/5 transition-colors"
+              aria-label={animated ? 'Desactivar fondo animado' : 'Activar fondo animado'}
+              title={animated ? 'Fondo animado: activado' : 'Fondo animado: desactivado'}
+            >
+              <Sparkles className={`w-4 h-4 transition-opacity ${animated ? 'opacity-100' : 'opacity-40'}`} />
+            </button>
+
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
               <Button size="sm" className="gap-2">
                 <Phone className="w-4 h-4" />

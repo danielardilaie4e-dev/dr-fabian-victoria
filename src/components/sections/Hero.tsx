@@ -4,7 +4,8 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { formatWhatsApp } from '@/lib/utils'
 import { SpecialText } from '@/components/ui/SpecialText'
-import { Phone, ArrowDown, GraduationCap, Award, Shield } from 'lucide-react'
+import { Phone, ArrowDown, GraduationCap, Award, Shield, MapPin } from 'lucide-react'
+import Image from 'next/image'
 
 export function Hero() {
   const whatsappUrl = formatWhatsApp('3209115240')
@@ -21,12 +22,7 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="max-w-xl"
           >
-            <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#AA8D57]" />
-              Cirujano Plástico en Cali
-            </div>
-
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral/80 mb-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral/80 mb-6">
               <span className="flex items-center gap-1">
                 <GraduationCap className="w-3.5 h-3.5 text-secondary" />
                 Universidad del Valle
@@ -69,6 +65,16 @@ export function Hero() {
                   Ver procedimientos
                 </Button>
               </a>
+              <a
+                href="https://maps.google.com/?q=Cali+Colombia"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="lg" className="gap-2">
+                  <MapPin className="w-5 h-5" />
+                  Ubicación
+                </Button>
+              </a>
             </div>
 
             <div className="flex items-center gap-6 mt-10 pt-8 border-t border-card-border/10">
@@ -95,15 +101,17 @@ export function Hero() {
             className="hidden lg:flex items-center justify-center"
           >
             <div className="relative">
-              <div className="w-96 h-96 rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5" />
+              <div className="w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-[#AA8D57]/20 to-[#AA8D57]/5" />
               <div className="absolute inset-4 rounded-full border border-secondary/10" />
-              <div className="absolute inset-8 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-secondary/20">
-                  <div className="text-center">
-                    <div className="text-secondary text-5xl font-serif font-bold">FV</div>
-                    <div className="text-white/80 text-sm mt-2 font-light tracking-wider">DR. FABIÁN VICTORIA</div>
-                    <div className="text-secondary/60 text-xs mt-1">Cirujano Plástico</div>
-                  </div>
+              <div className="absolute inset-6 rounded-full border border-[#E4D5A5]/20 flex items-center justify-center">
+                <div className="w-72 h-72 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center border border-secondary/20 overflow-hidden">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Dr. Fabián Victoria"
+                    width={280}
+                    height={280}
+                    className="w-full h-full object-cover opacity-90"
+                  />
                 </div>
               </div>
             </div>
