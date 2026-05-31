@@ -21,8 +21,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   } | null>(null)
 
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    if (!containerRef.current) return
 
     const SEPARATION = 150
     const AMOUNTX = 40
@@ -47,7 +46,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(scene.fog.color, 0)
 
-    container.appendChild(renderer.domElement)
+    containerRef.current.appendChild(renderer.domElement)
 
     const particles: THREE.Points[] = []
     const positions: number[] = []
@@ -151,8 +150,10 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
         sceneRef.current.renderer.dispose()
 
-        if (sceneRef.current.renderer.domElement) {
-          container.removeChild(sceneRef.current.renderer.domElement)
+        if (containerRef.current && sceneRef.current.renderer.domElement) {
+          containerRef.current.removeChild(
+            sceneRef.current.renderer.domElement,
+          )
         }
       }
     }
@@ -161,7 +162,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
   return (
     <div
       ref={containerRef}
-      className={cn('pointer-events-none fixed inset-0 z-0', className)}
+      className={cn('pointer-events-none fixed inset-0 -z-1', className)}
       {...props}
     />
   )

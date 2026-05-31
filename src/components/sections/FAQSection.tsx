@@ -178,7 +178,6 @@ export function FAQSection() {
                           onMouseDown={() => {
                             const realIndex = FAQS.findIndex((f) => f.q === faq.q)
                             setOpenIndex(openIndex === realIndex ? null : realIndex)
-                            setSearch('')
                             setIsFocused(false)
                           }}
                           className="w-full flex items-start gap-3 px-4 py-3 text-left hover:bg-surface transition-colors"
